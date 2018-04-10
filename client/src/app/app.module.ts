@@ -26,6 +26,9 @@ import { StackEditComponent } from './admin/stack-edit/stack-edit.component';
 import { SkillService } from './server/controllers/skill.service';
 import { AboutMeComponent } from './admin/about-me/about-me.component';
 import { AboutMeEditComponent } from './admin/about-me-edit/about-me-edit.component';
+import { ProjectsComponent } from './admin/projects/projects.component';
+import { ProjectEditComponent } from './admin/project-edit/project-edit.component';
+import { ProjectService } from './server/controllers/project.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import { AboutMeEditComponent } from './admin/about-me-edit/about-me-edit.compon
     StackEditComponent,
     AboutMeComponent,
     AboutMeEditComponent,
+    ProjectsComponent,
+    ProjectEditComponent,
     
   ],
   imports: [
@@ -59,7 +64,8 @@ import { AboutMeEditComponent } from './admin/about-me-edit/about-me-edit.compon
   providers: [
     UserService,
     ImageService,
-    SkillService
+    SkillService,
+    ProjectService
   ],
   bootstrap: [AppComponent]
 })

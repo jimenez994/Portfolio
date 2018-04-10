@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/admin/about-me-edit/about-me-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  \n</p>\n"
+module.exports = "<form (submit)=\"update()\">\n\n    <input type=\"text\" name=\"aboutMeTitle\" [(ngModel)]=\"userEdit.aboutMeTitle\">\n    <textarea name=\"aboutMe\"  rows=\"4\" [(ngModel)]=\"userEdit.aboutMe\"></textarea>\n    <div class=\"form-group\">\n        <select class=\"form-control form-control-sm\" name=\"backgroud\" [(ngModel)]=\"userEdit.myImg\">\n            <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n        </select>\n    </div>\n    <input type=\"submit\" value=\"update\">\n    \n</form>"
 
 /***/ }),
 
@@ -68,7 +68,7 @@ var AboutMeEditComponent = /** @class */ (function () {
         Object.assign(this.userEdit, this.currentUser);
     };
     AboutMeEditComponent.prototype.update = function () {
-        this.userEdit.canEditHeader = false;
+        this.userEdit.canEditAboutMe = false;
         console.log(this.userEdit);
         this.updateUserEvent.emit(this.userEdit);
     };
@@ -102,7 +102,7 @@ exports.AboutMeEditComponent = AboutMeEditComponent;
 /***/ "../../../../../src/app/admin/about-me/about-me.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"card\">\n    <img class=\"card-img-top img-fluid\" src=\"{{currentUser.myImg}}\" alt=\"some image\">\n    <div class=\"card-body\">\n      <h5>{{currentUser.aboutMeTitle}}</h5>\n      <p>{{currentUser.aboutMe}}</p>\n    </div>\n    <div class=\"card-footer\">\n      <button class=\"btn btn-info\" (click)=\"currentUser.canEditAboutMe = !currentUser.canEditAboutMe\">edit</button>\n    </div>\n  </div>\n</div>\n<app-about-me-edit [currentUser]=\"currentUser\" [images]=\"images\" *ngIf=\"currentUser.canEditAboutMe\"></app-about-me-edit>"
+module.exports = "<div>\n  <div class=\"card\">\n    <img class=\"card-img-top img-fluid\" src=\"{{currentUser.myImg}}\" alt=\"some image\">\n    <div class=\"card-body\">\n      <h5>{{currentUser.aboutMeTitle}}</h5>\n      <p>{{currentUser.aboutMe}}</p>\n    </div>\n    <div class=\"card-footer\">\n      <button class=\"btn btn-info\" (click)=\"currentUser.canEditAboutMe = !currentUser.canEditAboutMe\">edit</button>\n    </div>\n  </div>\n</div>\n<app-about-me-edit [currentUser]=\"currentUser\" (updateUserEvent)=\"update($event)\" [images]=\"images\" *ngIf=\"currentUser.canEditAboutMe\"></app-about-me-edit>"
 
 /***/ }),
 
@@ -179,7 +179,7 @@ exports.AboutMeComponent = AboutMeComponent;
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects></app-projects>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -221,11 +221,13 @@ var user_service_1 = __webpack_require__("../../../../../src/app/server/controll
 var image_service_1 = __webpack_require__("../../../../../src/app/server/controllers/image.service.ts");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var skill_service_1 = __webpack_require__("../../../../../src/app/server/controllers/skill.service.ts");
+var project_service_1 = __webpack_require__("../../../../../src/app/server/controllers/project.service.ts");
 var AdminComponent = /** @class */ (function () {
-    function AdminComponent(_userService, _imageService, _stackService, _router) {
+    function AdminComponent(_userService, _imageService, _stackService, _projectService, _router) {
         this._userService = _userService;
         this._imageService = _imageService;
         this._stackService = _stackService;
+        this._projectService = _projectService;
         this._router = _router;
         this.images = [];
         this.currentUser = null;
@@ -293,6 +295,25 @@ var AdminComponent = /** @class */ (function () {
             .then(function (status) { return _this.getUser(); })
             .catch(function (err) { return console.log(err); });
     };
+    // Project CRUD
+    AdminComponent.prototype.createProject = function (project) {
+        var _this = this;
+        this._projectService.createProject(project)
+            .then(function (status) { return _this.getUser(); })
+            .catch(function (err) { return console.log(err); });
+    };
+    AdminComponent.prototype.destroyProject = function (id) {
+        var _this = this;
+        this._projectService.deleteProject(id)
+            .then(function (status) { return _this.getUser(); })
+            .catch(function (err) { return console.log(err); });
+    };
+    AdminComponent.prototype.updateProject = function (project) {
+        var _this = this;
+        this._projectService.updateProject(project)
+            .then(function (satus) { return _this.getUser; })
+            .catch(function (err) { return console.log(err); });
+    };
     AdminComponent = __decorate([
         core_1.Component({
             selector: 'app-admin',
@@ -302,6 +323,7 @@ var AdminComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [user_service_1.UserService,
             image_service_1.ImageService,
             skill_service_1.SkillService,
+            project_service_1.ProjectService,
             router_1.Router])
     ], AdminComponent);
     return AdminComponent;
@@ -363,7 +385,6 @@ var HeaderEditComponent = /** @class */ (function () {
     };
     HeaderEditComponent.prototype.update = function () {
         this.userEdit.canEditHeader = false;
-        console.log(this.userEdit);
         this.updateUserEvent.emit(this.userEdit);
     };
     __decorate([
@@ -562,6 +583,128 @@ var ImgUploadComponent = /** @class */ (function () {
     return ImgUploadComponent;
 }());
 exports.ImgUploadComponent = ImgUploadComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/project-edit/project-edit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  project-edit works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/project-edit/project-edit.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/project-edit/project-edit.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var ProjectEditComponent = /** @class */ (function () {
+    function ProjectEditComponent() {
+    }
+    ProjectEditComponent.prototype.ngOnInit = function () {
+    };
+    ProjectEditComponent = __decorate([
+        core_1.Component({
+            selector: 'app-project-edit',
+            template: __webpack_require__("../../../../../src/app/admin/project-edit/project-edit.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/project-edit/project-edit.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ProjectEditComponent);
+    return ProjectEditComponent;
+}());
+exports.ProjectEditComponent = ProjectEditComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/projects/projects.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  projects works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/projects/projects.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/projects/projects.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var ProjectsComponent = /** @class */ (function () {
+    function ProjectsComponent() {
+    }
+    ProjectsComponent.prototype.ngOnInit = function () {
+    };
+    ProjectsComponent = __decorate([
+        core_1.Component({
+            selector: 'app-projects',
+            template: __webpack_require__("../../../../../src/app/admin/projects/projects.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/projects/projects.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ProjectsComponent);
+    return ProjectsComponent;
+}());
+exports.ProjectsComponent = ProjectsComponent;
 
 
 /***/ }),
@@ -1047,6 +1190,9 @@ var stack_edit_component_1 = __webpack_require__("../../../../../src/app/admin/s
 var skill_service_1 = __webpack_require__("../../../../../src/app/server/controllers/skill.service.ts");
 var about_me_component_1 = __webpack_require__("../../../../../src/app/admin/about-me/about-me.component.ts");
 var about_me_edit_component_1 = __webpack_require__("../../../../../src/app/admin/about-me-edit/about-me-edit.component.ts");
+var projects_component_1 = __webpack_require__("../../../../../src/app/admin/projects/projects.component.ts");
+var project_edit_component_1 = __webpack_require__("../../../../../src/app/admin/project-edit/project-edit.component.ts");
+var project_service_1 = __webpack_require__("../../../../../src/app/server/controllers/project.service.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1069,6 +1215,8 @@ var AppModule = /** @class */ (function () {
                 stack_edit_component_1.StackEditComponent,
                 about_me_component_1.AboutMeComponent,
                 about_me_edit_component_1.AboutMeEditComponent,
+                projects_component_1.ProjectsComponent,
+                project_edit_component_1.ProjectEditComponent,
             ],
             imports: [
                 ng_bootstrap_1.NgbModule.forRoot(),
@@ -1081,7 +1229,8 @@ var AppModule = /** @class */ (function () {
             providers: [
                 user_service_1.UserService,
                 image_service_1.ImageService,
-                skill_service_1.SkillService
+                skill_service_1.SkillService,
+                project_service_1.ProjectService
             ],
             bootstrap: [app_component_1.AppComponent]
         })
@@ -1477,6 +1626,55 @@ var ImageService = /** @class */ (function () {
     return ImageService;
 }());
 exports.ImageService = ImageService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/server/controllers/project.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+__webpack_require__("../../../../rxjs/Rx.js");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var ProjectService = /** @class */ (function () {
+    function ProjectService(_http) {
+        this._http = _http;
+    }
+    ProjectService.prototype.createProject = function (newProject) {
+        return this._http.post("/project/create", newProject).map(function (data) { return data.json(); }).toPromise();
+    };
+    ProjectService.prototype.getPrjects = function () {
+        return this._http.get("/projects").map(function (data) { return data.json(); }).toPromise();
+    };
+    ProjectService.prototype.getOneProject = function (id) {
+        return this._http.get("/project/" + id).map(function (data) { return data.json(); }).toPromise();
+    };
+    ProjectService.prototype.deleteProject = function (id) {
+        return this._http.delete("/project/delete/" + id).map(function (data) { return data.json(); }).toPromise();
+    };
+    ProjectService.prototype.updateProject = function (project) {
+        return this._http.put("/project/update/" + project._id, project).map(function (data) { return data.json(); }).toPromise();
+    };
+    ProjectService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], ProjectService);
+    return ProjectService;
+}());
+exports.ProjectService = ProjectService;
 
 
 /***/ }),

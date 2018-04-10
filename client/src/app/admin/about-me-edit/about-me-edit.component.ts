@@ -17,7 +17,7 @@ export class AboutMeEditComponent implements OnInit {
     Object.assign(this.userEdit, this.currentUser);
   }
   update() {
-    this.userEdit.canEditHeader = false;
+    this.userEdit.canEditAboutMe = false;
     console.log(this.userEdit);
     this.updateUserEvent.emit(this.userEdit);
   }

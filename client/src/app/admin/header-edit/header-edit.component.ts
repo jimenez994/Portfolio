@@ -18,7 +18,6 @@ export class HeaderEditComponent implements OnInit {
   }
   update(){
     this.userEdit.canEditHeader = false;
-    console.log(this.userEdit);
     this.updateUserEvent.emit(this.userEdit);
   }
 

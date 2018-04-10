@@ -10,4 +10,4 @@
     </div>
   </div>
 </div>
-<app-about-me-edit [currentUser]="currentUser" [images]="images" *ngIf="currentUser.canEditAboutMe"></app-about-me-edit>
+<app-about-me-edit [currentUser]="currentUser" (updateUserEvent)="update($event)" [images]="images" *ngIf="currentUser.canEditAboutMe"></app-about-me-edit>

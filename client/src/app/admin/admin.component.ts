@@ -6,6 +6,8 @@ import { User } from '../server/models/user';
 import { Router } from '@angular/router';
 import { SkillService } from '../server/controllers/skill.service';
 import { Skill } from '../server/models/skill';
+import { ProjectService } from '../server/controllers/project.service';
+import { Project } from '../server/models/project';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -19,6 +21,7 @@ export class AdminComponent implements OnInit {
     private _userService: UserService,
     private _imageService: ImageService,
     private _stackService: SkillService,
+    private _projectService: ProjectService, 
     private _router: Router,
   ) { }
 
@@ -75,6 +78,22 @@ export class AdminComponent implements OnInit {
   updateStack(stack){
     this._stackService.update(stack)
     .then(status => this.getUser())
+    .catch(err => console.log(err))
+  }
+  // Project CRUD
+  createProject(project: Project){
+    this._projectService.createProject(project)
+    .then(status => this.getUser())
+    .catch(err => console.log(err))
+  }
+  destroyProject(id){
+    this._projectService.deleteProject(id)
+    .then(status => this.getUser())
+    .catch(err => console.log(err))
+  }
+  updateProject(project){
+    this._projectService.updateProject(project)
+    .then(satus => this.getUser)
     .catch(err => console.log(err))
   }
 }

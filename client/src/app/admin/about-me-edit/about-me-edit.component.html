@@ -1,3 +1,12 @@
-<p>
-  
-</p>
+<form (submit)="update()">
+
+    <input type="text" name="aboutMeTitle" [(ngModel)]="userEdit.aboutMeTitle">
+    <textarea name="aboutMe"  rows="4" [(ngModel)]="userEdit.aboutMe"></textarea>
+    <div class="form-group">
+        <select class="form-control form-control-sm" name="backgroud" [(ngModel)]="userEdit.myImg">
+            <option *ngFor="let image of images" value="{{image.src}}">{{image.name}}</option>
+        </select>
+    </div>
+    <input type="submit" value="update">
+    
+</form>
