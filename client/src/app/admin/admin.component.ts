@@ -8,6 +8,7 @@ import { SkillService } from '../server/controllers/skill.service';
 import { Skill } from '../server/models/skill';
 import { ProjectService } from '../server/controllers/project.service';
 import { Project } from '../server/models/project';
+import { LinkService } from '../server/controllers/link.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -22,6 +23,7 @@ export class AdminComponent implements OnInit {
     private _imageService: ImageService,
     private _stackService: SkillService,
     private _projectService: ProjectService, 
+    private _linkService: LinkService,
     private _router: Router,
   ) { }
 
@@ -69,6 +71,7 @@ export class AdminComponent implements OnInit {
     this._stackService.createSkill(skill)
     .then(status => this.getUser())
     .catch(err => console.log(err))
+  
   }
   destroyStack(id){
     this._stackService.deleteSkill(id)
@@ -94,6 +97,22 @@ export class AdminComponent implements OnInit {
   updateProject(project){
     this._projectService.updateProject(project)
     .then(satus => this.getUser())
+    .catch(err => console.log(err))
+  }
+  // Link CRUD
+  createLink(link){
+    this._linkService.createLink(link)
+    .then(status => this.getUser())
+    .catch(err => console.log(err))
+  }
+  destroyLink(id){
+    this._linkService.deleteLink(id)
+    .then(status => this.getUser())
+    .catch(err => console.log(err))
+  }
+  updateLink(link){
+    this._linkService.updateLink(link)
+    .then(status => this.getUser())
     .catch(err => console.log(err))
   }
 }

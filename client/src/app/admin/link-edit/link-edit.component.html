@@ -1,0 +1,10 @@
+<form (submit)="updatelink()">
+  <input type="text" name="title" [(ngModel)]="linkEdit.title">
+  <textarea name="summary" rows="3" [(ngModel)]="linkEdit.summary"></textarea>
+  <div class="form-group">
+    <select class="form-control form-control-sm" name="img" [(ngModel)]="linkEdit.img">
+      <option *ngFor="let image of images" value="{{image.src}}">{{image.name}}</option>
+    </select>
+  </div>
+  <input class="btn btn-primary" type="submit" value="update">
+</form>

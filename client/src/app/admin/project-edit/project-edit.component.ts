@@ -20,7 +20,6 @@ export class ProjectEditComponent implements OnInit {
   }
   updateProject(){
     this.projectEdit.editable = false;
-    console.log(this.projectEdit)
     this.updateProjectEvent.emit(this.projectEdit);
   }
 }

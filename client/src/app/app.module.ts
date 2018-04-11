@@ -32,6 +32,9 @@ import { ProjectService } from './server/controllers/project.service';
 import { ImgListComponent } from './admin/img-list/img-list.component';
 import { OtherComponent } from './admin/other/other.component';
 import { OtherEditComponent } from './admin/other-edit/other-edit.component';
+import { LinkComponent } from './admin/link/link.component';
+import { LinkEditComponent } from './admin/link-edit/link-edit.component';
+import { LinkService } from './server/controllers/link.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,8 @@ import { OtherEditComponent } from './admin/other-edit/other-edit.component';
     ImgListComponent,
     OtherComponent,
     OtherEditComponent,
+    LinkComponent,
+    LinkEditComponent,
     
   ],
   imports: [
@@ -71,7 +76,8 @@ import { OtherEditComponent } from './admin/other-edit/other-edit.component';
     UserService,
     ImageService,
     SkillService,
-    ProjectService
+    ProjectService,
+    LinkService
   ],
   bootstrap: [AppComponent]
 })

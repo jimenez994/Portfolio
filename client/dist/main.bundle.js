@@ -179,7 +179,7 @@ exports.AboutMeComponent = AboutMeComponent;
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects (destroyProjectEvent)=\"destroyProject($event)\" (updateProjectEvent)=\"updateProject($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createProjectEvent)=\"createProject($event)\"></app-projects>\n        <app-other [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-other>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects (destroyProjectEvent)=\"destroyProject($event)\" (updateProjectEvent)=\"updateProject($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createProjectEvent)=\"createProject($event)\"></app-projects>\n        <app-other [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-other>\n        <app-link (destroyLinkEvent)=\"destroyLink($event)\" (updateLinkEvent)=\"updateLink($event)\" [images]=\"images\" [currentUser]=\"currentUser\"\n        (createLinkEvent)=\"createLink($event)\"></app-link>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -222,12 +222,14 @@ var image_service_1 = __webpack_require__("../../../../../src/app/server/control
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var skill_service_1 = __webpack_require__("../../../../../src/app/server/controllers/skill.service.ts");
 var project_service_1 = __webpack_require__("../../../../../src/app/server/controllers/project.service.ts");
+var link_service_1 = __webpack_require__("../../../../../src/app/server/controllers/link.service.ts");
 var AdminComponent = /** @class */ (function () {
-    function AdminComponent(_userService, _imageService, _stackService, _projectService, _router) {
+    function AdminComponent(_userService, _imageService, _stackService, _projectService, _linkService, _router) {
         this._userService = _userService;
         this._imageService = _imageService;
         this._stackService = _stackService;
         this._projectService = _projectService;
+        this._linkService = _linkService;
         this._router = _router;
         this.images = [];
         this.currentUser = null;
@@ -314,6 +316,25 @@ var AdminComponent = /** @class */ (function () {
             .then(function (satus) { return _this.getUser(); })
             .catch(function (err) { return console.log(err); });
     };
+    // Link CRUD
+    AdminComponent.prototype.createLink = function (link) {
+        var _this = this;
+        this._linkService.createLink(link)
+            .then(function (status) { return _this.getUser(); })
+            .catch(function (err) { return console.log(err); });
+    };
+    AdminComponent.prototype.destroyLink = function (id) {
+        var _this = this;
+        this._linkService.deleteLink(id)
+            .then(function (status) { return _this.getUser(); })
+            .catch(function (err) { return console.log(err); });
+    };
+    AdminComponent.prototype.updateLink = function (link) {
+        var _this = this;
+        this._linkService.updateLink(link)
+            .then(function (status) { return _this.getUser(); })
+            .catch(function (err) { return console.log(err); });
+    };
     AdminComponent = __decorate([
         core_1.Component({
             selector: 'app-admin',
@@ -324,6 +345,7 @@ var AdminComponent = /** @class */ (function () {
             image_service_1.ImageService,
             skill_service_1.SkillService,
             project_service_1.ProjectService,
+            link_service_1.LinkService,
             router_1.Router])
     ], AdminComponent);
     return AdminComponent;
@@ -660,6 +682,185 @@ exports.ImgUploadComponent = ImgUploadComponent;
 
 /***/ }),
 
+/***/ "../../../../../src/app/admin/link-edit/link-edit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form (submit)=\"updatelink()\">\n  <input type=\"text\" name=\"title\" [(ngModel)]=\"linkEdit.title\">\n  <textarea name=\"summary\" rows=\"3\" [(ngModel)]=\"linkEdit.summary\"></textarea>\n  <div class=\"form-group\">\n    <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"linkEdit.img\">\n      <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n    </select>\n  </div>\n  <input class=\"btn btn-primary\" type=\"submit\" value=\"update\">\n</form>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/link-edit/link-edit.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/link-edit/link-edit.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var link_1 = __webpack_require__("../../../../../src/app/server/models/link.ts");
+var LinkEditComponent = /** @class */ (function () {
+    function LinkEditComponent() {
+        this.updateLinkEvent = new core_1.EventEmitter;
+        this.linkEdit = new link_1.Link();
+    }
+    LinkEditComponent.prototype.ngOnInit = function () {
+        Object.assign(this.linkEdit, this.link);
+    };
+    LinkEditComponent.prototype.updateLink = function () {
+        this.linkEdit.editable = false;
+        this.updateLinkEvent.emit(this.linkEdit);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], LinkEditComponent.prototype, "images", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], LinkEditComponent.prototype, "link", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], LinkEditComponent.prototype, "updateLinkEvent", void 0);
+    LinkEditComponent = __decorate([
+        core_1.Component({
+            selector: 'app-link-edit',
+            template: __webpack_require__("../../../../../src/app/admin/link-edit/link-edit.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/link-edit/link-edit.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LinkEditComponent);
+    return LinkEditComponent;
+}());
+exports.LinkEditComponent = LinkEditComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/link/link.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-lg-3 col-md-6\" *ngFor=\"let link of currentUser._link\">\n    <div class=\"card\">\n      <img class=\"card-img-top img-fluid\" src=\"{{link.img}}\" alt=\"some image\">\n      <div class=\"card-body\">\n        <p class=\"card-title\">{{link.title}}</p>\n        <p class=\"card-title\"> <small>{{link.description}}</small> </p>\n        \n      </div>\n      <div class=\"card-footer\">\n        <button (click)=\"deleteLink(link._id)\">X</button>\n        <button (click)=\"link.editable = !link.editable\">\n          <small>edit</small>\n        </button>\n      </div>\n    </div>\n    <app-link-edit [link]=\"link\" [images]=\"images\" (updateLinkEvent)=\"updateLink($event)\" *ngIf=\"link.editable\"></app-link-edit>\n  </div>\n  <div class=\"col-lg-3 col-md-6\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <form (submit)=\"createLink()\">\n          <div class=\"form-group\">\n            <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"newLink.img\">\n              <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n            </select>\n          </div>\n          <input type=\"text\" name=\"title\" [(ngModel)]=\"newLink.title\" placeholder=\"Title\">\n          <input type=\"text\" name=\"description\" [(ngModel)]=\"newLink.description\" placeholder=\"description\">\n          <input class=\"btn btn-success\" type=\"submit\" value=\"create\">\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/link/link.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/link/link.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var link_1 = __webpack_require__("../../../../../src/app/server/models/link.ts");
+var link_service_1 = __webpack_require__("../../../../../src/app/server/controllers/link.service.ts");
+var LinkComponent = /** @class */ (function () {
+    function LinkComponent(_linkServer) {
+        this._linkServer = _linkServer;
+        this.newLink = new link_1.Link();
+        this.createLinkEvent = new core_1.EventEmitter;
+        this.destroyLinkEvent = new core_1.EventEmitter;
+        this.updateLinkEvent = new core_1.EventEmitter;
+    }
+    LinkComponent.prototype.ngOnInit = function () {
+    };
+    LinkComponent.prototype.createLink = function (link) {
+        this.createLinkEvent.emit(this.newLink);
+        this.newLink = new link_1.Link();
+    };
+    LinkComponent.prototype.deleteLink = function (link) {
+        this.destroyLinkEvent.emit(link);
+    };
+    LinkComponent.prototype.updateLink = function (link) {
+        this.updateLinkEvent.emit(link);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], LinkComponent.prototype, "currentUser", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], LinkComponent.prototype, "images", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], LinkComponent.prototype, "createLinkEvent", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], LinkComponent.prototype, "destroyLinkEvent", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], LinkComponent.prototype, "updateLinkEvent", void 0);
+    LinkComponent = __decorate([
+        core_1.Component({
+            selector: 'app-link',
+            template: __webpack_require__("../../../../../src/app/admin/link/link.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/link/link.component.scss")]
+        }),
+        __metadata("design:paramtypes", [link_service_1.LinkService])
+    ], LinkComponent);
+    return LinkComponent;
+}());
+exports.LinkComponent = LinkComponent;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/admin/other-edit/other-edit.component.html":
 /***/ (function(module, exports) {
 
@@ -872,7 +1073,6 @@ var ProjectEditComponent = /** @class */ (function () {
     };
     ProjectEditComponent.prototype.updateProject = function () {
         this.projectEdit.editable = false;
-        console.log(this.projectEdit);
         this.updateProjectEvent.emit(this.projectEdit);
     };
     __decorate([
@@ -1488,6 +1688,9 @@ var project_service_1 = __webpack_require__("../../../../../src/app/server/contr
 var img_list_component_1 = __webpack_require__("../../../../../src/app/admin/img-list/img-list.component.ts");
 var other_component_1 = __webpack_require__("../../../../../src/app/admin/other/other.component.ts");
 var other_edit_component_1 = __webpack_require__("../../../../../src/app/admin/other-edit/other-edit.component.ts");
+var link_component_1 = __webpack_require__("../../../../../src/app/admin/link/link.component.ts");
+var link_edit_component_1 = __webpack_require__("../../../../../src/app/admin/link-edit/link-edit.component.ts");
+var link_service_1 = __webpack_require__("../../../../../src/app/server/controllers/link.service.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1515,6 +1718,8 @@ var AppModule = /** @class */ (function () {
                 img_list_component_1.ImgListComponent,
                 other_component_1.OtherComponent,
                 other_edit_component_1.OtherEditComponent,
+                link_component_1.LinkComponent,
+                link_edit_component_1.LinkEditComponent,
             ],
             imports: [
                 ng_bootstrap_1.NgbModule.forRoot(),
@@ -1528,7 +1733,8 @@ var AppModule = /** @class */ (function () {
                 user_service_1.UserService,
                 image_service_1.ImageService,
                 skill_service_1.SkillService,
-                project_service_1.ProjectService
+                project_service_1.ProjectService,
+                link_service_1.LinkService
             ],
             bootstrap: [app_component_1.AppComponent]
         })
@@ -1928,6 +2134,55 @@ exports.ImageService = ImageService;
 
 /***/ }),
 
+/***/ "../../../../../src/app/server/controllers/link.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+__webpack_require__("../../../../rxjs/Rx.js");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var LinkService = /** @class */ (function () {
+    function LinkService(_http) {
+        this._http = _http;
+    }
+    LinkService.prototype.createLink = function (newLink) {
+        return this._http.post("/link/create", newLink).map(function (data) { return data.json(); }).toPromise();
+    };
+    LinkService.prototype.getLinks = function () {
+        return this._http.get("/links").map(function (data) { return data.json(); }).toPromise();
+    };
+    LinkService.prototype.getOneLink = function (id) {
+        return this._http.get("/link/" + id).map(function (data) { return data.json(); }).toPromise();
+    };
+    LinkService.prototype.deleteLink = function (id) {
+        return this._http.delete("/link/delete/" + id).map(function (data) { return data.json(); }).toPromise();
+    };
+    LinkService.prototype.updateLink = function (link) {
+        return this._http.put("/link/update/" + link._id, link).map(function (data) { return data.json(); }).toPromise();
+    };
+    LinkService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], LinkService);
+    return LinkService;
+}());
+exports.LinkService = LinkService;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/server/controllers/project.service.ts":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2101,6 +2356,23 @@ var Image = /** @class */ (function () {
     return Image;
 }());
 exports.Image = Image;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/server/models/link.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Link = /** @class */ (function () {
+    function Link() {
+        this.editable = false;
+    }
+    return Link;
+}());
+exports.Link = Link;
 
 
 /***/ }),

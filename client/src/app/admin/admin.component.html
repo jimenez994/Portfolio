@@ -10,5 +10,7 @@
         <app-about-me [images]="images" [currentUser]="currentUser" (updateUserEvent)="updateUser($event)"></app-about-me>
         <app-projects (destroyProjectEvent)="destroyProject($event)" (updateProjectEvent)="updateProject($event)" [images]="images" [currentUser]="currentUser" (createProjectEvent)="createProject($event)"></app-projects>
         <app-other [images]="images" [currentUser]="currentUser" (updateUserEvent)="updateUser($event)"></app-other>
+        <app-link (destroyLinkEvent)="destroyLink($event)" (updateLinkEvent)="updateLink($event)" [images]="images" [currentUser]="currentUser"
+        (createLinkEvent)="createLink($event)"></app-link>
     </div>
 </div>

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-lg-3 col-md-6" *ngFor="let link of currentUser._link">
+    <div class="card">
+      <img class="card-img-top img-fluid" src="{{link.img}}" alt="some image">
+      <div class="card-body">
+        <p class="card-title">{{link.title}}</p>
+        <p class="card-title"> <small>{{link.description}}</small> </p>
+        
+      </div>
+      <div class="card-footer">
+        <button (click)="deleteLink(link._id)">X</button>
+        <button (click)="link.editable = !link.editable">
+          <small>edit</small>
+        </button>
+      </div>
+    </div>
+    <app-link-edit [link]="link" [images]="images" (updateLinkEvent)="updateLink($event)" *ngIf="link.editable"></app-link-edit>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <form (submit)="createLink()">
+          <div class="form-group">
+            <select class="form-control form-control-sm" name="img" [(ngModel)]="newLink.img">
+              <option *ngFor="let image of images" value="{{image.src}}">{{image.name}}</option>
+            </select>
+          </div>
+          <input type="text" name="title" [(ngModel)]="newLink.title" placeholder="Title">
+          <input type="text" name="description" [(ngModel)]="newLink.description" placeholder="description">
+          <input class="btn btn-success" type="submit" value="create">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
