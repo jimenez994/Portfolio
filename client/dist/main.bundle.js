@@ -179,7 +179,7 @@ exports.AboutMeComponent = AboutMeComponent;
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects (destroyProjectEvent)=\"destroyProject($event)\" (updateProjectEvent)=\"updateProject($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createProjectEvent)=\"createProject($event)\"></app-projects>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects (destroyProjectEvent)=\"destroyProject($event)\" (updateProjectEvent)=\"updateProject($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createProjectEvent)=\"createProject($event)\"></app-projects>\n        <app-other [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-other>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -656,6 +656,165 @@ var ImgUploadComponent = /** @class */ (function () {
     return ImgUploadComponent;
 }());
 exports.ImgUploadComponent = ImgUploadComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/other-edit/other-edit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form (submit)=\"update()\">\n  <div class=\"form-group\">\n    <div class=\"form-group\">\n      <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"userEdit.otherImg\">\n        <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n      </select>\n    </div>\n    <input type=\"text\" name=\"other\" [(ngModel)]=\"userEdit.other\">\n  </div>\n  <input class=\"btn btn-primary\" type=\"submit\" value=\"update\">\n</form>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/other-edit/other-edit.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/other-edit/other-edit.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var user_1 = __webpack_require__("../../../../../src/app/server/models/user.ts");
+var OtherEditComponent = /** @class */ (function () {
+    function OtherEditComponent() {
+        this.updateUserEvent = new core_1.EventEmitter();
+        this.userEdit = new user_1.User();
+    }
+    OtherEditComponent.prototype.ngOnInit = function () {
+        Object.assign(this.userEdit, this.currentUser);
+    };
+    OtherEditComponent.prototype.update = function () {
+        this.userEdit.canEditOther = false;
+        console.log(this.userEdit);
+        this.updateUserEvent.emit(this.userEdit);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", user_1.User)
+    ], OtherEditComponent.prototype, "currentUser", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], OtherEditComponent.prototype, "images", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], OtherEditComponent.prototype, "updateUserEvent", void 0);
+    OtherEditComponent = __decorate([
+        core_1.Component({
+            selector: 'app-other-edit',
+            template: __webpack_require__("../../../../../src/app/admin/other-edit/other-edit.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/other-edit/other-edit.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], OtherEditComponent);
+    return OtherEditComponent;
+}());
+exports.OtherEditComponent = OtherEditComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/other/other.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card text-center\">\n  <img class=\"card-img-top\" src=\"{{currentUser.otherImg}}\" alt=\"some other image\">\n  <div class=\"card-body\">\n    <h4 class=\"card-text\">{{currentUser.other}}</h4>\n  </div>\n  <div class=\"card-footer\">\n    <button class=\"btn btn-info\" (click)=\"currentUser.canEditOther = !currentUser.canEditOther\">Edit</button>\n  </div>\n  <app-other-edit [currentUser]=\"currentUser\" [images]=\"images\" (updateUserEvent)=\"update($event)\" *ngIf=\"currentUser.canEditOther\"></app-other-edit>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/other/other.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/other/other.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var OtherComponent = /** @class */ (function () {
+    function OtherComponent() {
+        this.updateUserEvent = new core_1.EventEmitter;
+    }
+    OtherComponent.prototype.ngOnInit = function () {
+    };
+    OtherComponent.prototype.update = function (user) {
+        this.updateUserEvent.emit(user);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], OtherComponent.prototype, "images", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], OtherComponent.prototype, "currentUser", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], OtherComponent.prototype, "updateUserEvent", void 0);
+    OtherComponent = __decorate([
+        core_1.Component({
+            selector: 'app-other',
+            template: __webpack_require__("../../../../../src/app/admin/other/other.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/other/other.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], OtherComponent);
+    return OtherComponent;
+}());
+exports.OtherComponent = OtherComponent;
 
 
 /***/ }),
@@ -1327,6 +1486,8 @@ var projects_component_1 = __webpack_require__("../../../../../src/app/admin/pro
 var project_edit_component_1 = __webpack_require__("../../../../../src/app/admin/project-edit/project-edit.component.ts");
 var project_service_1 = __webpack_require__("../../../../../src/app/server/controllers/project.service.ts");
 var img_list_component_1 = __webpack_require__("../../../../../src/app/admin/img-list/img-list.component.ts");
+var other_component_1 = __webpack_require__("../../../../../src/app/admin/other/other.component.ts");
+var other_edit_component_1 = __webpack_require__("../../../../../src/app/admin/other-edit/other-edit.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1352,6 +1513,8 @@ var AppModule = /** @class */ (function () {
                 projects_component_1.ProjectsComponent,
                 project_edit_component_1.ProjectEditComponent,
                 img_list_component_1.ImgListComponent,
+                other_component_1.OtherComponent,
+                other_edit_component_1.OtherEditComponent,
             ],
             imports: [
                 ng_bootstrap_1.NgbModule.forRoot(),

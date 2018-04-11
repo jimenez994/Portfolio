@@ -1,0 +1,11 @@
+<form (submit)="update()">
+  <div class="form-group">
+    <div class="form-group">
+      <select class="form-control form-control-sm" name="img" [(ngModel)]="userEdit.otherImg">
+        <option *ngFor="let image of images" value="{{image.src}}">{{image.name}}</option>
+      </select>
+    </div>
+    <input type="text" name="other" [(ngModel)]="userEdit.other">
+  </div>
+  <input class="btn btn-primary" type="submit" value="update">
+</form>
