@@ -10,7 +10,7 @@ const ImgSchema = new mongoose.Schema({
     },
     editable: {
         type: Boolean,
-        required: false
+        required: true
     },
     _user: {
         type: mongoose.Schema.Types.ObjectId,

@@ -30,8 +30,8 @@ module.exports = {
         Image.find({}, (err, images) => {
             if(err){
                 return res.json(err);
-            }else{
-                return res.json(images);
+            }else{ 
+                return res.json(images.reverse());
             }
         })
     },

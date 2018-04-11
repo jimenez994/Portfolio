@@ -1,0 +1,7 @@
+<div class="card" *ngFor="let img of images">
+  <img class="card-img-top img-fluid" src="{{img.src}}" alt="{{img.name}}">
+  <div class="card-body">
+    <p class="card-text">{{img.name}}</p>
+    <button class="btn btn-danger" (click)='deleteImg(img._id)'>X</button>
+  </div>
+</div>

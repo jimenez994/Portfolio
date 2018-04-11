@@ -491,10 +491,83 @@ exports.HeaderComponent = HeaderComponent;
 
 /***/ }),
 
+/***/ "../../../../../src/app/admin/img-list/img-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"card\" *ngFor=\"let img of images\">\n  <img class=\"card-img-top img-fluid\" src=\"{{img.src}}\" alt=\"{{img.name}}\">\n  <div class=\"card-body\">\n    <p class=\"card-text\">{{img.name}}</p>\n    <button class=\"btn btn-danger\" (click)='deleteImg(img._id)'>X</button>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/img-list/img-list.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/admin/img-list/img-list.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var ImgListComponent = /** @class */ (function () {
+    function ImgListComponent() {
+        this.deleteImgEvent = new core_1.EventEmitter;
+    }
+    ImgListComponent.prototype.ngOnInit = function () {
+    };
+    ImgListComponent.prototype.deleteImg = function (id) {
+        this.deleteImgEvent.emit(id);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], ImgListComponent.prototype, "images", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ImgListComponent.prototype, "deleteImgEvent", void 0);
+    ImgListComponent = __decorate([
+        core_1.Component({
+            selector: 'app-img-list',
+            template: __webpack_require__("../../../../../src/app/admin/img-list/img-list.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/admin/img-list/img-list.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ImgListComponent);
+    return ImgListComponent;
+}());
+exports.ImgListComponent = ImgListComponent;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/admin/img-upload/img-upload.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <form (submit)=\"uploadImg()\">\n    <image-upload buttonCaption=\"Add a Image\" dropBoxMessage=\"10Mb Limit\" [max]=\"1\" [maxFileSize]=\"1000000000\" (uploadFinished)=\"onUploadStatus($event)\"></image-upload>\n    <input class=\"btn btn-info btn-block\" type=\"submit\" value=\"upload\">\n  </form>\n\n  <div class=\"card\"  *ngFor=\"let img of images\" >\n    <img class=\"card-img-top img-fluid\" src=\"{{img.src}}\" alt=\"{{img.name}}\">\n    <div class=\"card-body\">\n      <p class=\"card-text\">{{img.name}}</p>\n      <button class=\"btn btn-danger\" (click)='deleteImg(img._id)'>X</button>\n    </div>\n  </div>\n\n\n\n\n"
+module.exports = "\n  <form (submit)=\"uploadImg()\">\n    <image-upload buttonCaption=\"Add a Image\" dropBoxMessage=\"10Mb Limit\" [max]=\"1\" [maxFileSize]=\"1000000000\" (uploadFinished)=\"onUploadStatus($event)\"></image-upload>\n    <input class=\"btn btn-info btn-block\" type=\"submit\" value=\"upload\">\n  </form>\n  <div *ngIf=\"images[0]\">\n    <button (click)=\"images[0].editable = !images[0].editable\">\n      <small>show images</small>\n    </button>\n    <app-img-list *ngIf=\"images[0].editable\" (deleteImgEvent)=\"deleteImg($event)\" [images]=\"images\"></app-img-list>\n  </div>\n \n\n\n\n\n"
 
 /***/ }),
 
@@ -590,7 +663,7 @@ exports.ImgUploadComponent = ImgUploadComponent;
 /***/ "../../../../../src/app/admin/project-edit/project-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form (submit)=\"updateProject()\">\n  <input type=\"text\" name=\"title\" [(ngModel)]=\"projectEdit.title\">\n  <input class=\"btn btn-primary\" type=\"submit\" value=\"update\">\n</form>"
+module.exports = "<form (submit)=\"updateProject()\">\n  <input type=\"text\" name=\"title\" [(ngModel)]=\"projectEdit.title\">\n  <input type=\"text\" name=\"subTitle\" [(ngModel)]=\"projectEdit.subTitle\">\n  <textarea name=\"summary\"  rows=\"3\" [(ngModel)]=\"projectEdit.summary\"></textarea>\n  <div class=\"form-group\">\n    <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"projectEdit.img\">\n      <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n    </select>\n  </div>\n  <input class=\"btn btn-primary\" type=\"submit\" value=\"update\">\n</form>"
 
 /***/ }),
 
@@ -629,6 +702,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var project_1 = __webpack_require__("../../../../../src/app/server/models/project.ts");
+var image_1 = __webpack_require__("../../../../../src/app/server/models/image.ts");
 var ProjectEditComponent = /** @class */ (function () {
     function ProjectEditComponent() {
         this.updateProjectEvent = new core_1.EventEmitter();
@@ -646,6 +720,10 @@ var ProjectEditComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", project_1.Project)
     ], ProjectEditComponent.prototype, "project", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", image_1.Image)
+    ], ProjectEditComponent.prototype, "images", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
@@ -668,7 +746,7 @@ exports.ProjectEditComponent = ProjectEditComponent;
 /***/ "../../../../../src/app/admin/projects/projects.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-lg-3 col-md-6\" *ngFor=\"let project of currentUser._project\">\n    <div class=\"card\">\n      <img class=\"card-img-top img-fluid\" src=\"{{project.img}}\" alt=\"some image\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">{{project.title}}</h5>\n        <p class=\"card-text\">{{project.subTitle}}</p>\n        <p class=\"card-text\"><small>{{project.summary}}</small></p>\n      </div>\n      <div class=\"card-footer\">\n        <button (click)=\"deleteProject(project._id)\">X</button>\n        <button (click)=\"project.editable = !project.editable\">\n          <small>edit</small>\n        </button>\n      </div>\n    </div>\n    <app-project-edit [project]=\"project\" (updateProjectEvent)=\"updateProject($event)\" *ngIf=\"project.editable\"></app-project-edit>\n  </div>\n  <div class=\"col-lg-3 col-md-6\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <form (submit)=\"createProject()\">\n          <div class=\"form-group\">\n            <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"newProject.img\">\n              <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n            </select>\n          </div>\n          <input type=\"text\" name=\"title\" [(ngModel)]=\"newProject.title\" placeholder=\"Title\">\n          <input type=\"text\" name=\"subTitle\" [(ngModel)]=\"newProject.subTitle\" placeholder=\"Sub Title\">\n          <input type=\"text\" name=\"description\" [(ngModel)]=\"newProject.description\" placeholder=\"description\">\n          <input type=\"text\" name=\"summary\" [(ngModel)]=\"newProject.summary\" placeholder=\"summary\">          \n          <input class=\"btn btn-success\" type=\"submit\" value=\"create\">\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"row\">\n  <div class=\"col-lg-3 col-md-6\" *ngFor=\"let project of currentUser._project\">\n    <div class=\"card\">\n      <img class=\"card-img-top img-fluid\" src=\"{{project.img}}\" alt=\"some image\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">{{project.title}}</h5>\n        <p class=\"card-text\">{{project.subTitle}}</p>\n        <p class=\"card-text\"><small>{{project.summary}}</small></p>\n      </div>\n      <div class=\"card-footer\">\n        <button (click)=\"deleteProject(project._id)\">X</button>\n        <button (click)=\"project.editable = !project.editable\">\n          <small>edit</small>\n        </button>\n      </div>\n    </div>\n    <app-project-edit [project]=\"project\" [images]=\"images\" (updateProjectEvent)=\"updateProject($event)\" *ngIf=\"project.editable\"></app-project-edit>\n  </div>\n  <div class=\"col-lg-3 col-md-6\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <form (submit)=\"createProject()\">\n          <div class=\"form-group\">\n            <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"newProject.img\">\n              <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n            </select>\n          </div>\n          <input type=\"text\" name=\"title\" [(ngModel)]=\"newProject.title\" placeholder=\"Title\">\n          <input type=\"text\" name=\"subTitle\" [(ngModel)]=\"newProject.subTitle\" placeholder=\"Sub Title\">\n          <input type=\"text\" name=\"description\" [(ngModel)]=\"newProject.description\" placeholder=\"description\">\n          <input type=\"text\" name=\"summary\" [(ngModel)]=\"newProject.summary\" placeholder=\"summary\">          \n          <input class=\"btn btn-success\" type=\"submit\" value=\"create\">\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1248,6 +1326,7 @@ var about_me_edit_component_1 = __webpack_require__("../../../../../src/app/admi
 var projects_component_1 = __webpack_require__("../../../../../src/app/admin/projects/projects.component.ts");
 var project_edit_component_1 = __webpack_require__("../../../../../src/app/admin/project-edit/project-edit.component.ts");
 var project_service_1 = __webpack_require__("../../../../../src/app/server/controllers/project.service.ts");
+var img_list_component_1 = __webpack_require__("../../../../../src/app/admin/img-list/img-list.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1272,6 +1351,7 @@ var AppModule = /** @class */ (function () {
                 about_me_edit_component_1.AboutMeEditComponent,
                 projects_component_1.ProjectsComponent,
                 project_edit_component_1.ProjectEditComponent,
+                img_list_component_1.ImgListComponent,
             ],
             imports: [
                 ng_bootstrap_1.NgbModule.forRoot(),
@@ -1853,6 +1933,7 @@ exports.UserService = UserService;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Image = /** @class */ (function () {
     function Image() {
+        this.editable = true;
     }
     return Image;
 }());

@@ -29,6 +29,7 @@ import { AboutMeEditComponent } from './admin/about-me-edit/about-me-edit.compon
 import { ProjectsComponent } from './admin/projects/projects.component';
 import { ProjectEditComponent } from './admin/project-edit/project-edit.component';
 import { ProjectService } from './server/controllers/project.service';
+import { ImgListComponent } from './admin/img-list/img-list.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ProjectService } from './server/controllers/project.service';
     AboutMeEditComponent,
     ProjectsComponent,
     ProjectEditComponent,
+    ImgListComponent,
     
   ],
   imports: [

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from '../../server/models/project';
+import { Image } from '../../server/models/image';
 
 @Component({
   selector: 'app-project-edit',
@@ -9,6 +10,7 @@ import { Project } from '../../server/models/project';
 export class ProjectEditComponent implements OnInit {
 
   @Input() project: Project;
+  @Input() images: Image;
   @Output() updateProjectEvent= new EventEmitter()
   projectEdit: Project = new Project();
   constructor() { }

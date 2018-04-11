@@ -1,4 +1,11 @@
 <form (submit)="updateProject()">
   <input type="text" name="title" [(ngModel)]="projectEdit.title">
+  <input type="text" name="subTitle" [(ngModel)]="projectEdit.subTitle">
+  <textarea name="summary"  rows="3" [(ngModel)]="projectEdit.summary"></textarea>
+  <div class="form-group">
+    <select class="form-control form-control-sm" name="img" [(ngModel)]="projectEdit.img">
+      <option *ngFor="let image of images" value="{{image.src}}">{{image.name}}</option>
+    </select>
+  </div>
   <input class="btn btn-primary" type="submit" value="update">
 </form>
