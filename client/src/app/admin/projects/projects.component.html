@@ -1,3 +1,37 @@
-<p>
-  projects works!
-</p>
+<div class="row">
+  <div class="col-lg-3 col-md-6" *ngFor="let project of currentUser._project">
+    <div class="card">
+      <img class="card-img-top img-fluid" src="{{project.img}}" alt="some image">
+      <div class="card-body">
+        <h5 class="card-title">{{project.title}}</h5>
+        <p class="card-text">{{project.subTitle}}</p>
+        <p class="card-text"><small>{{project.summary}}</small></p>
+      </div>
+      <div class="card-footer">
+        <button (click)="deleteProject(project._id)">X</button>
+        <button (click)="project.editable = !project.editable">
+          <small>edit</small>
+        </button>
+      </div>
+    </div>
+    <app-project-edit [project]="project" (updateProjectEvent)="updateProject($event)" *ngIf="project.editable"></app-project-edit>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <form (submit)="createProject()">
+          <div class="form-group">
+            <select class="form-control form-control-sm" name="img" [(ngModel)]="newProject.img">
+              <option *ngFor="let image of images" value="{{image.src}}">{{image.name}}</option>
+            </select>
+          </div>
+          <input type="text" name="title" [(ngModel)]="newProject.title" placeholder="Title">
+          <input type="text" name="subTitle" [(ngModel)]="newProject.subTitle" placeholder="Sub Title">
+          <input type="text" name="description" [(ngModel)]="newProject.description" placeholder="description">
+          <input type="text" name="summary" [(ngModel)]="newProject.summary" placeholder="summary">          
+          <input class="btn btn-success" type="submit" value="create">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

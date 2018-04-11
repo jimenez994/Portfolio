@@ -8,6 +8,6 @@
         <app-summary [images]="images" [currentUser]="currentUser" (updateUserEvent)="updateUser($event)"></app-summary>
         <app-stacks (destroySkillEvent)="destroyStack($event)" (updateStackEvent)="updateStack($event)" [images]="images" [currentUser]="currentUser" (createStackEvent)="createStack($event)"></app-stacks>
         <app-about-me [images]="images" [currentUser]="currentUser" (updateUserEvent)="updateUser($event)"></app-about-me>
-        <app-projects></app-projects>
+        <app-projects (destroyProjectEvent)="destroyProject($event)" (updateProjectEvent)="updateProject($event)" [images]="images" [currentUser]="currentUser" (createProjectEvent)="createProject($event)"></app-projects>
     </div>
 </div>

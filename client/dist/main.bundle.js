@@ -179,7 +179,7 @@ exports.AboutMeComponent = AboutMeComponent;
 /***/ "../../../../../src/app/admin/admin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects></app-projects>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\" *ngIf=\"currentUser != null\">\n    <div class=\"col-sm-6 col-md-4 col-lg-3 col-xl-2\">\n        <app-img-upload [images]=\"images\" (destroyImageEvent)=\"destroyImg($event)\" (createNewImageEvent)=\"uploadImg($event)\"></app-img-upload>\n    </div>\n\n    <div class=\"col-sm-6 col-md-8 col-lg-9 col-xl-10\">\n        <app-header [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\" ></app-header>\n        <app-summary [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-summary>\n        <app-stacks (destroySkillEvent)=\"destroyStack($event)\" (updateStackEvent)=\"updateStack($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createStackEvent)=\"createStack($event)\"></app-stacks>\n        <app-about-me [images]=\"images\" [currentUser]=\"currentUser\" (updateUserEvent)=\"updateUser($event)\"></app-about-me>\n        <app-projects (destroyProjectEvent)=\"destroyProject($event)\" (updateProjectEvent)=\"updateProject($event)\" [images]=\"images\" [currentUser]=\"currentUser\" (createProjectEvent)=\"createProject($event)\"></app-projects>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -311,7 +311,7 @@ var AdminComponent = /** @class */ (function () {
     AdminComponent.prototype.updateProject = function (project) {
         var _this = this;
         this._projectService.updateProject(project)
-            .then(function (satus) { return _this.getUser; })
+            .then(function (satus) { return _this.getUser(); })
             .catch(function (err) { return console.log(err); });
     };
     AdminComponent = __decorate([
@@ -590,7 +590,7 @@ exports.ImgUploadComponent = ImgUploadComponent;
 /***/ "../../../../../src/app/admin/project-edit/project-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  project-edit works!\n</p>\n"
+module.exports = "<form (submit)=\"updateProject()\">\n  <input type=\"text\" name=\"title\" [(ngModel)]=\"projectEdit.title\">\n  <input class=\"btn btn-primary\" type=\"submit\" value=\"update\">\n</form>"
 
 /***/ }),
 
@@ -628,11 +628,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var project_1 = __webpack_require__("../../../../../src/app/server/models/project.ts");
 var ProjectEditComponent = /** @class */ (function () {
     function ProjectEditComponent() {
+        this.updateProjectEvent = new core_1.EventEmitter();
+        this.projectEdit = new project_1.Project();
     }
     ProjectEditComponent.prototype.ngOnInit = function () {
+        Object.assign(this.projectEdit, this.project);
     };
+    ProjectEditComponent.prototype.updateProject = function () {
+        this.projectEdit.editable = false;
+        console.log(this.projectEdit);
+        this.updateProjectEvent.emit(this.projectEdit);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", project_1.Project)
+    ], ProjectEditComponent.prototype, "project", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ProjectEditComponent.prototype, "updateProjectEvent", void 0);
     ProjectEditComponent = __decorate([
         core_1.Component({
             selector: 'app-project-edit',
@@ -651,7 +668,7 @@ exports.ProjectEditComponent = ProjectEditComponent;
 /***/ "../../../../../src/app/admin/projects/projects.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  projects works!\n</p>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-lg-3 col-md-6\" *ngFor=\"let project of currentUser._project\">\n    <div class=\"card\">\n      <img class=\"card-img-top img-fluid\" src=\"{{project.img}}\" alt=\"some image\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">{{project.title}}</h5>\n        <p class=\"card-text\">{{project.subTitle}}</p>\n        <p class=\"card-text\"><small>{{project.summary}}</small></p>\n      </div>\n      <div class=\"card-footer\">\n        <button (click)=\"deleteProject(project._id)\">X</button>\n        <button (click)=\"project.editable = !project.editable\">\n          <small>edit</small>\n        </button>\n      </div>\n    </div>\n    <app-project-edit [project]=\"project\" (updateProjectEvent)=\"updateProject($event)\" *ngIf=\"project.editable\"></app-project-edit>\n  </div>\n  <div class=\"col-lg-3 col-md-6\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <form (submit)=\"createProject()\">\n          <div class=\"form-group\">\n            <select class=\"form-control form-control-sm\" name=\"img\" [(ngModel)]=\"newProject.img\">\n              <option *ngFor=\"let image of images\" value=\"{{image.src}}\">{{image.name}}</option>\n            </select>\n          </div>\n          <input type=\"text\" name=\"title\" [(ngModel)]=\"newProject.title\" placeholder=\"Title\">\n          <input type=\"text\" name=\"subTitle\" [(ngModel)]=\"newProject.subTitle\" placeholder=\"Sub Title\">\n          <input type=\"text\" name=\"description\" [(ngModel)]=\"newProject.description\" placeholder=\"description\">\n          <input type=\"text\" name=\"summary\" [(ngModel)]=\"newProject.summary\" placeholder=\"summary\">          \n          <input class=\"btn btn-success\" type=\"submit\" value=\"create\">\n        </form>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -689,18 +706,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var project_1 = __webpack_require__("../../../../../src/app/server/models/project.ts");
+var project_service_1 = __webpack_require__("../../../../../src/app/server/controllers/project.service.ts");
 var ProjectsComponent = /** @class */ (function () {
-    function ProjectsComponent() {
+    function ProjectsComponent(_projectService) {
+        this._projectService = _projectService;
+        this.newProject = new project_1.Project();
+        this.destroyProjectEvent = new core_1.EventEmitter;
+        this.updateProjectEvent = new core_1.EventEmitter;
+        this.createProjectEvent = new core_1.EventEmitter;
     }
     ProjectsComponent.prototype.ngOnInit = function () {
     };
+    ProjectsComponent.prototype.createProject = function (project) {
+        this.createProjectEvent.emit(this.newProject);
+        this.newProject = new project_1.Project();
+    };
+    ProjectsComponent.prototype.deleteProject = function (project) {
+        console.log("delete");
+        this.destroyProjectEvent.emit(project);
+    };
+    ProjectsComponent.prototype.updateProject = function (project) {
+        this.updateProjectEvent.emit(project);
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], ProjectsComponent.prototype, "currentUser", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], ProjectsComponent.prototype, "images", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ProjectsComponent.prototype, "destroyProjectEvent", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ProjectsComponent.prototype, "updateProjectEvent", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ProjectsComponent.prototype, "createProjectEvent", void 0);
     ProjectsComponent = __decorate([
         core_1.Component({
             selector: 'app-projects',
             template: __webpack_require__("../../../../../src/app/admin/projects/projects.component.html"),
             styles: [__webpack_require__("../../../../../src/app/admin/projects/projects.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [project_service_1.ProjectService])
     ], ProjectsComponent);
     return ProjectsComponent;
 }());
@@ -1802,6 +1857,23 @@ var Image = /** @class */ (function () {
     return Image;
 }());
 exports.Image = Image;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/server/models/project.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Project = /** @class */ (function () {
+    function Project() {
+        this.editable = false;
+    }
+    return Project;
+}());
+exports.Project = Project;
 
 
 /***/ }),

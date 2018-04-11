@@ -1,3 +1,4 @@
-<p>
-  project-edit works!
-</p>
+<form (submit)="updateProject()">
+  <input type="text" name="title" [(ngModel)]="projectEdit.title">
+  <input class="btn btn-primary" type="submit" value="update">
+</form>

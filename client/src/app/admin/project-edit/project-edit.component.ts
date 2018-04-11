@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Project } from '../../server/models/project';
 
 @Component({
   selector: 'app-project-edit',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectEditComponent implements OnInit {
 
+  @Input() project: Project;
+  @Output() updateProjectEvent= new EventEmitter()
+  projectEdit: Project = new Project();
   constructor() { }
 
   ngOnInit() {
+    Object.assign(this.projectEdit, this.project);
   }
-
+  updateProject(){
+    this.projectEdit.editable = false;
+    console.log(this.projectEdit)
+    this.updateProjectEvent.emit(this.projectEdit);
+  }
 }

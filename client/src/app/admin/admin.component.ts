@@ -93,7 +93,7 @@ export class AdminComponent implements OnInit {
   }
   updateProject(project){
     this._projectService.updateProject(project)
-    .then(satus => this.getUser)
+    .then(satus => this.getUser())
     .catch(err => console.log(err))
   }
 }
