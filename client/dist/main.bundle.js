@@ -1554,7 +1554,6 @@ var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var login_body_component_1 = __webpack_require__("../../../../../src/app/login-body/login-body.component.ts");
 var porfolio_body_component_1 = __webpack_require__("../../../../../src/app/porfolio-body/porfolio-body.component.ts");
-var navbar_component_1 = __webpack_require__("../../../../../src/app/porfolio-body/navbar/navbar.component.ts");
 var registration_component_1 = __webpack_require__("../../../../../src/app/login-body/registration/registration.component.ts");
 var admin_component_1 = __webpack_require__("../../../../../src/app/admin/admin.component.ts");
 var routes = [
@@ -1564,9 +1563,7 @@ var routes = [
         ]
     },
     {
-        path: '', component: porfolio_body_component_1.PorfolioBodyComponent, children: [
-            { path: '', component: navbar_component_1.NavbarComponent }
-        ]
+        path: '', component: porfolio_body_component_1.PorfolioBodyComponent, children: []
     },
     {
         path: 'superAdmin', component: admin_component_1.AdminComponent, children: []
@@ -2029,7 +2026,7 @@ exports.NavbarComponent = NavbarComponent;
 /***/ "../../../../../src/app/porfolio-body/porfolio-body.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\n<img src=\"/images/img.jpg\" alt=\"some image\">"
+module.exports = "{{primaryUser | json}}\n\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -2067,14 +2064,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var user_service_1 = __webpack_require__("../../../../../src/app/server/controllers/user.service.ts");
 var PorfolioBodyComponent = /** @class */ (function () {
-    function PorfolioBodyComponent() {
+    function PorfolioBodyComponent(_userServices) {
+        this._userServices = _userServices;
+        this.users = null;
     }
     PorfolioBodyComponent.prototype.ngOnInit = function () {
-        this.onload();
+        this.getUsers();
     };
-    PorfolioBodyComponent.prototype.onload = function () {
-        console.log("will");
+    PorfolioBodyComponent.prototype.getUsers = function () {
+        var _this = this;
+        this._userServices.getUsers()
+            .then(function (users) {
+            _this.users = users;
+            _this.primaryUser = users[0];
+            console.log(_this.primaryUser);
+        })
+            .catch(function (err) { return console.log(err); });
     };
     PorfolioBodyComponent = __decorate([
         core_1.Component({
@@ -2082,7 +2089,7 @@ var PorfolioBodyComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/porfolio-body/porfolio-body.component.html"),
             styles: [__webpack_require__("../../../../../src/app/porfolio-body/porfolio-body.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [user_service_1.UserService])
     ], PorfolioBodyComponent);
     return PorfolioBodyComponent;
 }());
@@ -2310,7 +2317,7 @@ var UserService = /** @class */ (function () {
     };
     // get all users
     UserService.prototype.getUsers = function () {
-        return this._http.get("/users");
+        return this._http.get("/users").map(function (data) { return data.json(); }).toPromise();
     };
     // update current user 
     UserService.prototype.update = function (user) {

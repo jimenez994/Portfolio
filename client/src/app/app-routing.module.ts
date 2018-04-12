@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path:'', component: PorfolioBodyComponent, children: [
-      { path:'', component: NavbarComponent }
+      // { path:'', component: NavbarComponent }
     ]
   },
   {

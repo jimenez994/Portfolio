@@ -16,7 +16,7 @@ export class UserService {
   }
   // get all users
   getUsers(){
-    return this._http.get("/users");
+    return this._http.get("/users").map(data => data.json()).toPromise();
   }
   // update current user 
   update(user){
