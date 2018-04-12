@@ -1,38 +1,42 @@
-@mixin respond($breakpoint) {
-    @if $breakpoint == phone {
-        @media only screen and (max-width: 37.5em) { @content };    //600px
-    }
-    @if $breakpoint == tab-port {
-        @media only screen and (max-width: 56.25em) { @content };     //900px
-    }
-    @if $breakpoint == tab-land {
-        @media only screen and (max-width: 75em) { @content };    //1200px
-    }
-    @if $breakpoint == big-desktop {
-        @media only screen and (min-width: 112.5em) { @content };    //1800
-    }
+$primary: #3292a6;
+$primary-overlay: rgba(50,146,166,0.8);
+body{
+  margin-top:55px;
 }
-.section-stories {
-    position: relative;
-    padding: 15rem 0;
+.navbar{
+  box-shadow: 2px 2px 5px $primary;
+  opacity: 0.9;
+  background: #fff;
 
-    @include respond(tab-port) {
-        padding: 10rem 0;
-    }
+  .nav-item{
+    font-size:1.4rem;
+    padding-right: 20px;
+  }
 }
-.bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    opacity: .15;
-    overflow: hidden;
+#showcase{
+  position:relative;
+  background-position: top;
+  min-height: 600px;
+}
+.info-header{
+  width: 50%;
+  margin: auto;
+  border-bottom: 1px #ddd solid;
+}
 
-    &__content {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
+#authors{
+  img{
+    margin-top: -50px;
+  }
+  .fa{
+    font-size:25px;
+  }
+  .card:hover{
+    background: $primary;
+    color:#fff;
+
+    .fa{
+      color: #fff;
     }
+  }
 }

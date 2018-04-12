@@ -10,13 +10,11 @@ import { User } from '../server/models/user';
 export class PorfolioBodyComponent implements OnInit {
 
   users = null;
-  primaryUser: User;
+  primaryUser = null;
 
   constructor(
     private _userServices: UserService
   ) { }
-
-
   ngOnInit() {
     this.getUsers()
   }
@@ -25,7 +23,6 @@ export class PorfolioBodyComponent implements OnInit {
     .then(users => {
       this.users = users
       this.primaryUser = users[0]
-      console.log(this.primaryUser); 
     })
     .catch(err => console.log(err))
   }
