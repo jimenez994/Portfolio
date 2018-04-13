@@ -72,7 +72,7 @@
                     <div class="card text-center border-primary">
                         <div class="card-body">
                             <h3 class="text-primary">{{stack.title}}</h3>
-                            <p class="text-muted">{{stack.description}}</p>
+                            <p class="text-muted">{{stack.subTitle}}</p>
                         </div>
                     </div>
                 </div>
@@ -88,62 +88,19 @@
                 <div class="col">
                     <!-- ACCORDION -->
                     <div id="accordion" role="tablist">
-                        <div class="card">
+
+                        <div class="card" *ngFor="let stack of primaryUser._skill">
                             <div class="card-header" id="heading1">
                                 <h5 class="mb-0">
-                                    <div href="#collapse1" data-toggle="collapse" data-parent="#accordion">
-                                        <i class="fa fa-arrow-circle-down"></i> Get Inspired
+                                    <div [attr.href]="'#'+stack._id" data-toggle="collapse" data-parent="#accordion">
+                                        <i class="fa fa-arrow-circle-down"></i> {{stack.title}}
                                     </div>
                                 </h5>
                             </div>
 
-                            <div id="collapse1" class="collapse show">
+                            <div id="{{stack._id}}" class="collapse">
                                 <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi pariatur optio totam obcaecati facere nam nihil inventore
-                                    dolorum consequuntur quis unde voluptatibus numquam velit veniam explicabo eveniet fugit
-                                    hic, tenetur. Iusto, consequatur, obcaecati. Ab earum alias, placeat exercitationem possimus
-                                    quidem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem officia officiis
-                                    aliquam fugiat, omnis, corrupti dolorum ipsa laudantium sequi dolores!
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="heading2">
-                                <h5 class="mb-0">
-                                    <div href="#collapse2" data-toggle="collapse" data-parent="#accordion">
-                                        <i class="fa fa-arrow-circle-down"></i> Gain The Knowledge
-                                    </div>
-                                </h5>
-                            </div>
-
-                            <div id="collapse2" class="collapse">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi pariatur optio totam obcaecati facere nam nihil inventore
-                                    dolorum consequuntur quis unde voluptatibus numquam velit veniam explicabo eveniet fugit
-                                    hic, tenetur. Iusto, consequatur, obcaecati. Ab earum alias, placeat exercitationem possimus
-                                    quidem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem officia officiis
-                                    aliquam fugiat, omnis, corrupti dolorum ipsa laudantium sequi dolores!
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="heading3">
-                                <h5 class="mb-0">
-                                    <div href="#collapse3" data-toggle="collapse" data-parent="#accordion">
-                                        <i class="fa fa-arrow-circle-down"></i> Open Your Mind
-                                    </div>
-                                </h5>
-                            </div>
-
-                            <div id="collapse3" class="collapse">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi pariatur optio totam obcaecati facere nam nihil inventore
-                                    dolorum consequuntur quis unde voluptatibus numquam velit veniam explicabo eveniet fugit
-                                    hic, tenetur. Iusto, consequatur, obcaecati. Ab earum alias, placeat exercitationem possimus
-                                    quidem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem officia officiis
-                                    aliquam fugiat, omnis, corrupti dolorum ipsa laudantium sequi dolores!
+                                    {{stack.description}}
                                 </div>
                             </div>
                         </div>
@@ -160,10 +117,10 @@
                 <div class="col">
                     <div class="info-header mb-5">
                         <h1 class="text-primary pb-3">
-                            Meet The Authors
+                            Projects
                         </h1>
                         <p class="lead pb-3">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet omnis fuga maiores excepturi dolores explicabo.
+                            <!--  -->
                         </p>
                     </div>
                 </div>
@@ -189,7 +146,7 @@
             <div class="row">
                 <div class="col-lg-9">
                     <h3>Get In Touch</h3>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, et.</p>
+                    <p class="lead">If you have any questions, please don’t hesitate to contact using form below…</p>
                     <form>
                         <div class="form-group">
                             <div class="input-group input-group-lg">
