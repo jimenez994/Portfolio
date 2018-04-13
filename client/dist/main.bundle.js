@@ -1688,6 +1688,7 @@ var other_edit_component_1 = __webpack_require__("../../../../../src/app/admin/o
 var link_component_1 = __webpack_require__("../../../../../src/app/admin/link/link.component.ts");
 var link_edit_component_1 = __webpack_require__("../../../../../src/app/admin/link-edit/link-edit.component.ts");
 var link_service_1 = __webpack_require__("../../../../../src/app/server/controllers/link.service.ts");
+var message_service_1 = __webpack_require__("../../../../../src/app/server/controllers/message.service.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1731,7 +1732,8 @@ var AppModule = /** @class */ (function () {
                 image_service_1.ImageService,
                 skill_service_1.SkillService,
                 project_service_1.ProjectService,
-                link_service_1.LinkService
+                link_service_1.LinkService,
+                message_service_1.MessageService
             ],
             bootstrap: [app_component_1.AppComponent]
         })
@@ -2065,9 +2067,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var user_service_1 = __webpack_require__("../../../../../src/app/server/controllers/user.service.ts");
+var message_service_1 = __webpack_require__("../../../../../src/app/server/controllers/message.service.ts");
 var PorfolioBodyComponent = /** @class */ (function () {
-    function PorfolioBodyComponent(_userServices) {
+    function PorfolioBodyComponent(_userServices, _mesageService) {
         this._userServices = _userServices;
+        this._mesageService = _mesageService;
         this.users = null;
         this.primaryUser = null;
     }
@@ -2083,13 +2087,21 @@ var PorfolioBodyComponent = /** @class */ (function () {
         })
             .catch(function (err) { return console.log(err); });
     };
+    PorfolioBodyComponent.prototype.createMessage = function (message) {
+        var _this = this;
+        message._user = this.primaryUser._id;
+        this._mesageService.createMessage(message)
+            .then(function (status) { return _this.getUsers(); })
+            .catch(function (err) { return console.log(err); });
+    };
     PorfolioBodyComponent = __decorate([
         core_1.Component({
             selector: 'app-porfolio-body',
             template: __webpack_require__("../../../../../src/app/porfolio-body/porfolio-body.component.html"),
             styles: [__webpack_require__("../../../../../src/app/porfolio-body/porfolio-body.component.scss")]
         }),
-        __metadata("design:paramtypes", [user_service_1.UserService])
+        __metadata("design:paramtypes", [user_service_1.UserService,
+            message_service_1.MessageService])
     ], PorfolioBodyComponent);
     return PorfolioBodyComponent;
 }());
@@ -2186,6 +2198,47 @@ var LinkService = /** @class */ (function () {
     return LinkService;
 }());
 exports.LinkService = LinkService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/server/controllers/message.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var MessageService = /** @class */ (function () {
+    function MessageService(_http) {
+        this._http = _http;
+    }
+    MessageService.prototype.createMessage = function (newMessage) {
+        return this._http.post("/message/create/" + newMessage._user, newMessage).map(function (data) { return data.json(); }).toPromise();
+    };
+    MessageService.prototype.showMessages = function () {
+        return this._http.get("/messages").map(function (data) { return data.json(); }).toPromise();
+    };
+    MessageService.prototype.deleteMessage = function (id) {
+        return this._http.get("/message/delete/" + id).map(function (data) { return data.json(); }).toPromise();
+    };
+    MessageService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], MessageService);
+    return MessageService;
+}());
+exports.MessageService = MessageService;
 
 
 /***/ }),
