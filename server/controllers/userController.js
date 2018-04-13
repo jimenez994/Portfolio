@@ -14,9 +14,19 @@ const Tech = mongoose.model("Tech");
 
 module.exports = {
     show(rewq, res) {
-        User.find({}, (err, users) => {
-            if(err){
-                return res.json(err)
+        User.find({})
+        .populate({ path: '_skill', model: 'Skill' })
+        .populate({ path: '_work', model: 'Work' })
+        .populate({ path: '_recommendation', model: 'Recommendation' })
+        .populate({ path: '_project', model: 'Project' })
+        .populate({ path: '_message', model: 'Message' })
+        .populate({ path: '_image', model: 'Image' })
+        .populate({ path: '_accomplishment', model: 'Accomplishment' })
+        .populate({ path: '_link', model: 'Link' })
+        .populate({ path: '_tech', model: 'Tech' })
+        .exec((err, users) => {
+            if (err) {
+                return res.json(err);
             }
             return res.json(users);
         })
@@ -85,6 +95,7 @@ module.exports = {
             return res.json(user);
         })
     },
+    
     logout(req, res) {
         delete req.session.user_id;
         return res.json({"messafe":"you have logout"})
