@@ -36,6 +36,7 @@ import { LinkComponent } from './admin/link/link.component';
 import { LinkEditComponent } from './admin/link-edit/link-edit.component';
 import { LinkService } from './server/controllers/link.service';
 import { MessageService } from './server/controllers/message.service';
+import { MessagesComponent } from './admin/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { MessageService } from './server/controllers/message.service';
     OtherEditComponent,
     LinkComponent,
     LinkEditComponent,
+    MessagesComponent,
     
   ],
   imports: [
