@@ -6,6 +6,7 @@ import { NavbarComponent } from './porfolio-body/navbar/navbar.component';
 import { RegistrationComponent } from './login-body/registration/registration.component';
 import { AdminComponent } from './admin/admin.component';
 import { ImgUploadComponent } from './admin/img-upload/img-upload.component';
+import { MessagesComponent } from './admin/messages/messages.component';
 
 const routes: Routes = [
   {
@@ -15,13 +16,17 @@ const routes: Routes = [
   },
   {
     path:'', component: PorfolioBodyComponent, children: [
-      // { path:'', component: NavbarComponent }
+      { path:'', component: NavbarComponent }
     ]
   },
   {
-    path:'superAdmin', component: AdminComponent, children: [ 
-    ]
+    path:'superAdmin', component: AdminComponent, children: [ ]
+  },
+  { 
+    path: 'admin/messages', component: MessagesComponent
   }
+    
+  
 
 ];
 

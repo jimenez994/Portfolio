@@ -8,7 +8,7 @@ module.exports = {
             if (err){
                 return res.json(err);
             }
-            return res.json(messages);
+            return res.json(messages.reverse());
         });
     },
     create(req, res){

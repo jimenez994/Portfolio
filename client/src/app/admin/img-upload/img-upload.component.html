@@ -1,4 +1,3 @@
-
   <form (submit)="uploadImg()">
     <image-upload buttonCaption="Add a Image" dropBoxMessage="10Mb Limit" [max]="1" [maxFileSize]="1000000000" (uploadFinished)="onUploadStatus($event)"></image-upload>
     <input class="btn btn-info btn-block" type="submit" value="upload">

@@ -1,3 +1,11 @@
-<p>
-  messages works!
-</p>
+
+<div class="cotainer m-5">
+  <div *ngFor="let message of messages" class="card text-white bg-dark mb-3">
+    <div class="card-header">{{message.name}}</div>
+    <div class="card-body">
+      <h4 class="card-title">{{message.email}}</h4>
+      <p class="card-text">{{message.text}}</p>
+      <p class="text-muted">{{message.createdAt}}</p>
+    </div>
+  </div>
+</div>

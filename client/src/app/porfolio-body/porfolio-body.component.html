@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 <body id="home" *ngIf="primaryUser != null">
     <nav class="navbar navbar-expand-sm navbar-light fixed-top py-2">
         <div class="container">
@@ -26,29 +27,7 @@
             </div>
         </div>
     </nav>
-
-    <!-- SHOWCASE -->
-    <section id="showcase" class="py-5" [ngStyle]="{'background-image': 'linear-gradient(to right bottom, rgba(' + primaryUser.leftG + '), rgba(' + primaryUser.rightG + ')),
-    url(' + primaryUser.headerImg + ')'}">
-        <div class="text-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 text-center">
-                        <h1 class="display-2 text-white mt-5 pt-5">
-                            {{primaryUser.title}}
-                        </h1>
-                        <p id="summary" class="lead">{{primaryUser.subTitle}}</p>
-                        <a href="#" class="btn btn-outline-secondary btn-lg text-white">
-                            <i class="fa fa-arrow-right"></i> Read More</a>
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- <img src="{{primaryUser.}}" alt="" class="img-fluid d-none d-lg-block"> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <app-pheader []></app-pheader>
     <!-- Summary -->
     <section  class="bg-dark text-white py-5">
         <div class="container text-center">
@@ -194,4 +173,3 @@
 
 </body>
 
-<router-outlet></router-outlet>

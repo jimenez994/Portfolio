@@ -9,6 +9,7 @@ import { Skill } from '../server/models/skill';
 import { ProjectService } from '../server/controllers/project.service';
 import { Project } from '../server/models/project';
 import { LinkService } from '../server/controllers/link.service';
+import { MessageService } from '../server/controllers/message.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -25,13 +26,20 @@ export class AdminComponent implements OnInit {
     private _projectService: ProjectService, 
     private _linkService: LinkService,
     private _router: Router,
+    private _messageService: MessageService
   ) { }
 
   ngOnInit() {
     this.getImages()
     this.getUser()
-    console.log(this.currentUser)
   }
+  // Messages
+  getMessages(){
+    this._messageService.showMessages()
+    .then(status => this.getUser)
+    .catch(err => console.log(err))
+  }
+
   // User
   updateUser(user:User){
     this._userService.update(user)

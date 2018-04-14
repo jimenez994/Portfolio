@@ -37,6 +37,8 @@ import { LinkEditComponent } from './admin/link-edit/link-edit.component';
 import { LinkService } from './server/controllers/link.service';
 import { MessageService } from './server/controllers/message.service';
 import { MessagesComponent } from './admin/messages/messages.component';
+import { PsummaryComponent } from './porfolio-body/psummary/psummary.component';
+import { PheaderComponent } from './porfolio-body/pheader/pheader.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { MessagesComponent } from './admin/messages/messages.component';
     LinkComponent,
     LinkEditComponent,
     MessagesComponent,
+    PsummaryComponent,
+    PheaderComponent,
     
   ],
   imports: [
