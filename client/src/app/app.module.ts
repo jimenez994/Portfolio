@@ -39,6 +39,7 @@ import { MessageService } from './server/controllers/message.service';
 import { MessagesComponent } from './admin/messages/messages.component';
 import { PsummaryComponent } from './porfolio-body/psummary/psummary.component';
 import { PheaderComponent } from './porfolio-body/pheader/pheader.component';
+import { PstacksComponent } from './porfolio-body/pstacks/pstacks.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { PheaderComponent } from './porfolio-body/pheader/pheader.component';
     MessagesComponent,
     PsummaryComponent,
     PheaderComponent,
+    PstacksComponent,
     
   ],
   imports: [

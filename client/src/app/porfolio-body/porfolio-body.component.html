@@ -27,7 +27,8 @@
             </div>
         </div>
     </nav>
-    <app-pheader []></app-pheader>
+    <!-- Header -->
+    <app-pheader [primaryUser]="primaryUser"></app-pheader>
     <!-- Summary -->
     <section  class="bg-dark text-white py-5">
         <div class="container text-center">
@@ -36,6 +37,7 @@
     </section>
 
     <!-- Stacks -->
+    <app-pstacks [primaryUser]="primaryUser"></app-pstacks>
     <section id="boxes" class="py-5">
         <div class="container">
             <div class="info-header text-center mb-3">
