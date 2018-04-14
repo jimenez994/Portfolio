@@ -13,7 +13,7 @@ export class PorfolioBodyComponent implements OnInit {
 
   users = null;
   primaryUser = null;
-  newMessage: Message;
+  newMessage = new Message()
 
   constructor(
     private _userServices: UserService,
@@ -31,11 +31,12 @@ export class PorfolioBodyComponent implements OnInit {
     .catch(err => console.log(err))
   }
 
-  createMessage(message: Message){
-    message._user = this.primaryUser._id
-    this._mesageService.createMessage(message)
+  createMessage(){
+    this.newMessage._user = this.primaryUser._id
+    this._mesageService.createMessage(this.newMessage)
     .then(status => this.getUsers())
     .catch(err => console.log(err))
+    this.newMessage = new Message()
   }
 
 }

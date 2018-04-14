@@ -1,8 +1,8 @@
 export class Message {
-    _id: string;
-    email: string;
-    name: string;
-    text: string;
+    _id: String;
+    email: String;
+    name: String;
+    text: String;
     editable: Boolean = false;
-    _user: string;
+    _user: String;
 }
