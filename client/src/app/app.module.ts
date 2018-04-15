@@ -40,6 +40,8 @@ import { MessagesComponent } from './admin/messages/messages.component';
 import { PsummaryComponent } from './porfolio-body/psummary/psummary.component';
 import { PheaderComponent } from './porfolio-body/pheader/pheader.component';
 import { PstacksComponent } from './porfolio-body/pstacks/pstacks.component';
+import { PaboutMeComponent } from './porfolio-body/pabout-me/pabout-me.component';
+import { PprojectsComponent } from './porfolio-body/pprojects/pprojects.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { PstacksComponent } from './porfolio-body/pstacks/pstacks.component';
     PsummaryComponent,
     PheaderComponent,
     PstacksComponent,
+    PaboutMeComponent,
+    PprojectsComponent,
     
   ],
   imports: [

@@ -3,15 +3,14 @@
 
     <!-- vertical -->
 
-    <h4>Vertical Flip</h4>
-    <div class="flip flip-vertical">
-      <div class="front" [ngStyle]="{'background-image': 'linear-gradient(to right bottom, rgba(' + primaryUser.leftG + '), rgba(' + primaryUser.rightG
-      + ')), url(' + primaryUser.headerImg + ')'}">
-        <h1 class="text-shadow">FOREST</h1>
+    <h4>Skills</h4>
+    <div class="flip flip-vertical"  *ngFor="let stack of primaryUser._skill">
+      <div class="front" [ngStyle]="{'background-image': 'url(' + stack.img + ')'}">
+        <h1 class="text-shadow">{{stack.title}}</h1>
       </div>
       <div class="back">
-        <h2>Angular</h2>
-        <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..</p>
+        <h2>{{stack.title}}</h2>
+        <p>{{stack.description}}</p>
       </div>
     </div>
 </div>

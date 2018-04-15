@@ -38,59 +38,13 @@
 
     <!-- Stacks -->
     <app-pstacks [primaryUser]="primaryUser"></app-pstacks>
-    <section id="boxes" class="py-5">
-        <div class="container">
-            <div class="info-header text-center mb-3">
-                <h1 class="text-primary pb-3">
-                    {{primaryUser.other}}
-                </h1>
-                <p class="lead pb-3">
-                    {{primaryUser.experience}}
-                </p>
-            </div>
-            <div class="row">
-                <div *ngFor="let stack of primaryUser._skill" class="col-md">
-                    <div class="card text-center border-primary">
-                        <div class="card-body">
-                            <h3 class="text-primary">{{stack.title}}</h3>
-                            <p class="text-muted">{{stack.subTitle}}</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
 
-    <!-- ABOUT / WHY SECTION -->
-    <section id="about" class="py-5 text-center bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <!-- ACCORDION -->
-                    <div id="accordion" role="tablist">
+    <!-- Projects -->
+    <app-pprojects></app-pprojects>
 
-                        <div class="card" *ngFor="let stack of primaryUser._skill">
-                            <div class="card-header" id="heading1">
-                                <h5 class="mb-0">
-                                    <div [attr.href]="'#'+stack._id" data-toggle="collapse" data-parent="#accordion">
-                                        <i class="fa fa-arrow-circle-down"></i> {{stack.title}}
-                                    </div>
-                                </h5>
-                            </div>
-
-                            <div id="{{stack._id}}" class="collapse">
-                                <div class="card-body">
-                                    {{stack.description}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Anout me -->
+    <app-pabout-me></app-pabout-me>
+  
     <!-- AUTHORS -->
     <section id="authors" class="my-5 text-center">
         <div class="container">

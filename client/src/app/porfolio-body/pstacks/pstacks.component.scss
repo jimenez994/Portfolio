@@ -58,7 +58,7 @@ h1 {
 .flip {
   position: relative;
   display: inline-block;
-  margin-right: 2px;
+  margin-right: 4px;
   margin-bottom: 1em;
   width: 400px;
 }
@@ -72,7 +72,7 @@ h1 {
   height: 220px;
   padding: 1em 2em;
   background: #313131;
-  border-radius: 10px;
+//   border-radius: 10px;
 }
 .flip > .front p,
 .flip > .back p {

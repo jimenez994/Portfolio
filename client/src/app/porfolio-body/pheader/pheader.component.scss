@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+
 html {
-  height: 800px;
+  height: 600px;
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   overflow: hidden;
 }
@@ -57,14 +59,15 @@ html {
 
 #title {
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 0;
   right: 0;
-  color: #FFF;
+  color: rgb(255, 255, 255);
   text-align: center;
-  font-family: "lato", sans-serif;
-  font-weight: 300;
-  font-size: 50px;
+//   font-family: "lato", sans-serif;
+//   font-weight: 300;
+  font-family: 'Roboto Mono';
+  font-size: 60px;
   letter-spacing: 10px;
   margin-top: 0px;
   padding-left: 10px;

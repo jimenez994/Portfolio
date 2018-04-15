@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+*{
+  font-family: 'Roboto Mono';
+}
+
 $primary: #3292a6;
 $primary-overlay: rgba(50,146,166,0.8);
 body{
@@ -40,4 +45,6 @@ body{
     }
   }
 }
+
+
 
