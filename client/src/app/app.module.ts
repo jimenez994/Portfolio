@@ -12,7 +12,6 @@ import { LoginBodyComponent } from './login-body/login-body.component';
 import { RegistrationComponent } from './login-body/registration/registration.component';
 import { LoginComponent } from './login-body/login/login.component';
 import { PorfolioBodyComponent } from './porfolio-body/porfolio-body.component';
-import { NavbarComponent } from './porfolio-body/navbar/navbar.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserService } from './server/controllers/user.service';
 import { ImgUploadComponent } from './admin/img-upload/img-upload.component';
@@ -37,11 +36,11 @@ import { LinkEditComponent } from './admin/link-edit/link-edit.component';
 import { LinkService } from './server/controllers/link.service';
 import { MessageService } from './server/controllers/message.service';
 import { MessagesComponent } from './admin/messages/messages.component';
-import { PsummaryComponent } from './porfolio-body/psummary/psummary.component';
 import { PheaderComponent } from './porfolio-body/pheader/pheader.component';
 import { PstacksComponent } from './porfolio-body/pstacks/pstacks.component';
 import { PaboutMeComponent } from './porfolio-body/pabout-me/pabout-me.component';
 import { PprojectsComponent } from './porfolio-body/pprojects/pprojects.component';
+import { PlinksComponent } from './porfolio-body/plinks/plinks.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,6 @@ import { PprojectsComponent } from './porfolio-body/pprojects/pprojects.componen
     RegistrationComponent,
     LoginComponent,
     PorfolioBodyComponent,
-    NavbarComponent,
     AdminComponent,
     ImgUploadComponent,
     HeaderComponent,
@@ -69,11 +67,11 @@ import { PprojectsComponent } from './porfolio-body/pprojects/pprojects.componen
     LinkComponent,
     LinkEditComponent,
     MessagesComponent,
-    PsummaryComponent,
     PheaderComponent,
     PstacksComponent,
     PaboutMeComponent,
     PprojectsComponent,
+    PlinksComponent,
     
   ],
   imports: [

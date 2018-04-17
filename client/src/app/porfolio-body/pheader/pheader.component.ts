@@ -1,5 +1,4 @@
 import { Component, OnInit,Input } from '@angular/core';
-
 @Component({
   selector: 'app-pheader',
   templateUrl: './pheader.component.html',
