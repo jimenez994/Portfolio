@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 
 @Component({
   selector: 'app-pprojects',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pprojects.component.scss']
 })
 export class PprojectsComponent implements OnInit {
-
+  @Input() primaryUser;
   constructor() { }
 
   ngOnInit() {

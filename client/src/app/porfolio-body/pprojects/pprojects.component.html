@@ -1,53 +1,14 @@
 <h1>Projects</h1>
 <div class="accordion">
   <ul>
-    <li>
+    <li *ngFor="let project of primaryUser._project" [ngStyle]="{'background-image': 'url(' + project.img + ')'}">
       <div>
         <a href="#">
-          <h2>Lorem Ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+          <h2>{{project.title}}</h2>
+          <p>{{project.description}}</p>
         </a>
       </div>
     </li>
-    <li>
-      <div>
-        <a href="#">
-          <h2>Lorem Ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-        </a>
-      </div>
-    </li>
-    <li>
-      <div>
-        <a href="#">
-          <h2>Lorem Ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-        </a>
-      </div>
-    </li>
-    <li>
-      <div>
-        <a href="#">
-          <h2>Lorem Ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-        </a>
-      </div>
-    </li>
-    <li>
-      <div>
-        <a href="#">
-          <h2>Lorem Ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-        </a>
-      </div>
-    </li>
-    <li>
-      <div>
-        <a href="#">
-          <h2>Lorem Ipsum</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-        </a>
-      </div>
-    </li>
+    
   </ul>
 </div>

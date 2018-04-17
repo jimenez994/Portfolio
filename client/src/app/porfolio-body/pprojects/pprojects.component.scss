@@ -115,13 +115,7 @@ h1 {
     }
     
     // Background images
-    li:nth-child(1) { background-image:url('http://michael-ferry.com/assets/accordion1.jpg'); }
-    li:nth-child(2) { background-image:url('http://michael-ferry.com/assets/accordion2.jpg'); }
-    li:nth-child(3) { background-image:url('http://michael-ferry.com/assets/accordion3.jpg'); }
-    li:nth-child(4) { background-image:url('http://michael-ferry.com/assets/accordion4.jpg'); }
-    li:nth-child(5) { background-image:url('http://michael-ferry.com/assets/accordion5.jpg'); }
-    li:nth-child(6) { background-image:url('http://michael-ferry.com/assets/accordion6.jpg'); }
-
+   
     &:hover li { width:8%; }
 
     &:hover li:hover {
