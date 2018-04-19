@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { bla } from './bla';
 declare var summary: any;
 
 
@@ -14,6 +15,7 @@ export class PlinksComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    new bla();
   }
 
 }
