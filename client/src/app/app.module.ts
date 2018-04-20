@@ -41,6 +41,7 @@ import { PstacksComponent } from './porfolio-body/pstacks/pstacks.component';
 import { PaboutMeComponent } from './porfolio-body/pabout-me/pabout-me.component';
 import { PprojectsComponent } from './porfolio-body/pprojects/pprojects.component';
 import { PlinksComponent } from './porfolio-body/plinks/plinks.component';
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { PlinksComponent } from './porfolio-body/plinks/plinks.component';
     AppRoutingModule,
     FormsModule,
     HttpModule,
+    ParticlesModule,
     ImageUploadModule.forRoot(),
 
   ],

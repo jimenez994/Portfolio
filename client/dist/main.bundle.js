@@ -1778,6 +1778,7 @@ var pstacks_component_1 = __webpack_require__("../../../../../src/app/porfolio-b
 var pabout_me_component_1 = __webpack_require__("../../../../../src/app/porfolio-body/pabout-me/pabout-me.component.ts");
 var pprojects_component_1 = __webpack_require__("../../../../../src/app/porfolio-body/pprojects/pprojects.component.ts");
 var plinks_component_1 = __webpack_require__("../../../../../src/app/porfolio-body/plinks/plinks.component.ts");
+var angular_particle_1 = __webpack_require__("../../../../angular-particle/index.js");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1819,6 +1820,7 @@ var AppModule = /** @class */ (function () {
                 app_routing_module_1.AppRoutingModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
+                angular_particle_1.ParticlesModule,
                 angular2_image_upload_1.ImageUploadModule.forRoot(),
             ],
             providers: [
@@ -2123,151 +2125,10 @@ exports.PaboutMeComponent = PaboutMeComponent;
 
 /***/ }),
 
-/***/ "../../../../../src/app/porfolio-body/pheader/header.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-class header{
-    constructor(){
-        var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-        function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-        var canvas = document.querySelector('canvas');
-
-        var ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        var mouse = {
-            x: undefined,
-            y: undefined
-        };
-
-        window.addEventListener('resize', function () {
-            init();
-        });
-
-        window.addEventListener('mouseout', function () {
-            mouse = {
-                x: undefined,
-                y: undefined
-            };
-        });
-
-        window.addEventListener('mousemove', function (e) {
-            mouse = {
-                x: e.x,
-                y: e.y
-            };
-        });
-
-        var Particle = function () {
-            function Particle(x, y, r, dx, dy) {
-                _classCallCheck(this, Particle);
-
-                this.x = x;
-                this.y = y;
-                this.r = r;
-                this.dx = dx;
-                this.dy = dy;
-                this.color = 'white';
-            }
-
-            _createClass(Particle, [{
-                key: 'draw',
-                value: function draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                }
-            }, {
-                key: 'update',
-                value: function update() {
-                    var t = getDistance(mouse, this);
-
-                    if (this.x < 0 || this.x > canvas.width) {
-                        this.dx = -this.dx;
-                    }
-                    if (this.y < 0 || this.y > canvas.height) {
-                        this.dy = -this.dy;
-                    }
-
-                    if (mouse.x && mouse.y && t < 100) {
-                        // t2 = a2 + b2
-                        this.x += -(mouse.x - this.x) / (3 * t);
-                        this.y += -(mouse.y - this.y) / (3 * t);
-                    } else {
-                        this.x += this.dx;
-                        this.y += this.dy;
-                    }
-
-                    this.draw();
-                }
-            }]);
-
-            return Particle;
-        }();
-
-        var particles = [];
-
-        function init() {
-            particles = [];
-            canvas.height = window.innerHeight;
-            canvas.width = window.innerWidth;
-            for (var i = 0; i < 100; i++) {
-                var x = Math.random() * canvas.width;
-                var y = Math.random() * canvas.height;
-                var dx = Math.random() - 0.5;
-                var dy = Math.random() - 0.5;
-                var p = new Particle(x, y, 4, dx, dy);
-                particles.push(p);
-                p.draw();
-            }
-        }
-
-        function drawMatrix() {
-            particles.map(function (p1) {
-                particles.map(function (p2) {
-                    if (getDistance(p1, p2) < 50) {
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = "white";
-                        ctx.stroke();
-                    }
-                });
-            });
-        }
-
-        function getDistance(p1, p2) {
-            return Math.sqrt(Math.pow(p2.y - p1.y, 2) + Math.pow(p2.x - p1.x, 2));
-        }
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-            particles.map(function (p) {
-                p.update();
-            });
-            drawMatrix();
-        }
-
-        init();
-        animate();
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["header"] = header;
-
-
-/***/ }),
-
 /***/ "../../../../../src/app/porfolio-body/pheader/pheader.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<html>\n  <body>\n    <canvas></canvas>\n    \n    <div class=\"info\">\n      Drag your mouse for repulsion\n    </div>\n    \n    <div class=\"header\">\n      <h1>Jonathan Jimenez</h1>\n      <h2>\n        <a href=\"https://benafonso.com\">Ben. Afonso</a>\n      </h2>\n    </div>\n\n  </body>\n</html>"
+module.exports = "<div class=\"wrapper\">\n  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, commodi. Ullam eligendi debitis est, tenetur vero nisi sit, veritatis suscipit explicabo qui aperiam similique aut obcaecati iure, aliquid a ducimus?</p>\n  <button>erwfer</button>\n  <a href=\"#\">vsdbsdbsdtbs</a>\n<particles [params]=\"myParams\" [style]=\"myStyle\" [width]=\"width\" [height]=\"height\"></particles>\n</div>"
 
 /***/ }),
 
@@ -2279,7 +2140,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "html, body {\n  margin: 0;\n  padding: 0;\n  color: white; }\n\na {\n  text-decoration: none;\n  color: inherit; }\n\ncanvas {\n  background: #222;\n  z-index: -2; }\n\n.header {\n  position: absolute;\n  color: white;\n  top: 0;\n  left: 0;\n  width: 100%;\n  text-align: center;\n  margin-top: 35vh;\n  background-color: rgba(40, 90, 90, 0.3); }\n\nh1 {\n  position: relative;\n  font-family: 'Lobster', cursive;\n  font-weight: normal; }\n\nh2 {\n  font-family: 'Annie Use Your Telescope', cursive;\n  font-weight: normal; }\n\nh1:before {\n  content: \"\";\n  position: absolute;\n  bottom: -10px;\n  left: calc(50vw - 100px);\n  height: 1px;\n  width: 200px;\n  background: #fff; }\n\n.info {\n  font-family: 'Annie Use Your Telescope', cursive;\n  position: absolute;\n  top: 10px;\n  left: 0;\n  width: 200px;\n  background: rgba(100, 100, 100, 0.5);\n  height: 30px;\n  width: 200px;\n  line-height: 30px;\n  border-radius: 0px 4px 4px 0px;\n  padding-left: 20px; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  height: 500px;\n  background-color: #335c99;\n  background-size: cover;\n  background-position: 50% 50%;\n  background-repeat: no-repeat; }\n  .wrapper p {\n    color: white;\n    width: 500px;\n    margin-top: 40px;\n    height: 250px;\n    background-color: rgba(0, 0, 0, 0.651);\n    display: inline-block; }\n", ""]);
 
 // exports
 
@@ -2305,12 +2166,128 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
-var header_1 = __webpack_require__("../../../../../src/app/porfolio-body/pheader/header.js");
 var PheaderComponent = /** @class */ (function () {
     function PheaderComponent() {
+        this.myStyle = {};
+        this.myParams = {};
+        this.width = 100;
+        this.height = 100;
     }
     PheaderComponent.prototype.ngOnInit = function () {
-        new header_1.header();
+        this.myStyle = {
+            'position': 'fixed',
+            'width': '100%',
+            'height': '100%',
+            // 'z-index': -1,
+            'top': 0,
+            'left': 0,
+            'right': 0,
+            'bottom': 0,
+        };
+        this.myParams = {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#fff'
+                },
+                shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    },
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 1,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 0,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#fff",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "repulse"
+                        },
+                        onclick: {
+                            enable: true,
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 400,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        bubble: {
+                            distance: 400,
+                            size: 40,
+                            duration: 2,
+                            opacity: 8,
+                            speed: 3
+                        },
+                        repulse: {
+                            distance: 200,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        },
+                        remove: {
+                            particles_nb: 2
+                        }
+                    }
+                },
+                retina_detect: true
+            }
+        };
     };
     __decorate([
         core_1.Input(),
@@ -2321,8 +2298,7 @@ var PheaderComponent = /** @class */ (function () {
             selector: 'app-pheader',
             template: __webpack_require__("../../../../../src/app/porfolio-body/pheader/pheader.component.html"),
             styles: [__webpack_require__("../../../../../src/app/porfolio-body/pheader/pheader.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
+        })
     ], PheaderComponent);
     return PheaderComponent;
 }());
@@ -2331,116 +2307,18 @@ exports.PheaderComponent = PheaderComponent;
 
 /***/ }),
 
-/***/ "../../../../../src/app/porfolio-body/plinks/bla.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "../../../../../src/app/porfolio-body/plinks/bla.ts":
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-class bla{
-    constructor (){
-        
-        /* ---- particles.js config ---- */
 
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 100,
-                    "density": {
-                        "enable": true,
-                        "value_area": 1000
-                    }
-                },
-                "color": {
-                    "value": ["#aa73ff", "#f8c210", "#83d238", "#33b1f8"]
-                },
-
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#fff"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    },
-                    "image": {
-                        "src": "img/github.svg",
-                        "width": 100,
-                        "height": 100
-                    }
-                },
-                "opacity": {
-                    "value": 0.6,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 2,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 120,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": false
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
+Object.defineProperty(exports, "__esModule", { value: true });
+var bla = /** @class */ (function () {
+    function bla() {
     }
-
-}
-/* harmony export (immutable) */ __webpack_exports__["bla"] = bla;
+    return bla;
+}());
+exports.bla = bla;
 
 
 /***/ }),
@@ -2486,7 +2364,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
-var bla_1 = __webpack_require__("../../../../../src/app/porfolio-body/plinks/bla.js");
+var bla_1 = __webpack_require__("../../../../../src/app/porfolio-body/plinks/bla.ts");
 var PlinksComponent = /** @class */ (function () {
     function PlinksComponent() {
     }

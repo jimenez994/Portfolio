@@ -1,61 +1,16 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  color: white;
+.wrapper{
+  p{
+    color: white;
+    width: 500px;
+    margin-top: 40px;
+    height: 250px;
+    background-color: rgba(0, 0, 0, 0.651);
+    display: inline-block;
+  }
+  height: 500px;
+  background-color: rgb(51, 92, 153);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-canvas {
-  background: #222;
-  z-index: -2;
-}
-
-.header {
-  position: absolute;
-  color: white;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  margin-top: 35vh;
-  background-color: rgba(40,90,90,.3);
-}
-
-h1 {
-  position: relative;
-  font-family: 'Lobster', cursive;
-  font-weight: normal;
-}
-
-h2 {
-  font-family: 'Annie Use Your Telescope', cursive;
-  font-weight: normal;
-}
-
-h1:before {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: calc(50vw - 100px);
-  height: 1px;
-  width: 200px;
-  background: #fff;
-}
-
-.info {
-  font-family: 'Annie Use Your Telescope', cursive;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  width: 200px;
-  background: rgba(100,100,100,.5);
-  height: 30px;
-  width: 200px;
-  line-height: 30px;
-  border-radius: 0px 4px 4px 0px;
-  padding-left: 20px;
-}
+  
