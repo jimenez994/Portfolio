@@ -33,8 +33,9 @@ export class PorfolioBodyComponent implements OnInit {
       'position': 'fixed',
       'width': '100%',
       'height': '100%',
-      'z-index': -1,
-      'background-color': 'black',
+      'z-index': 1,
+      // 'background': '#171c37',
+      'opacity': 0.9,
       'top': 0,
       'left': 0,
       'right': 0,
@@ -56,11 +57,11 @@ export class PorfolioBodyComponent implements OnInit {
         shape: {
           type: "circle",
           stroke: {
-            width: 0,
-            color: "#000000"
+            width: 5,
+            color: "#5c8ba4"
           },
           polygon: {
-            nb_sides: 5
+            nb_sides: 8
           },
         },
         opacity: {
@@ -85,9 +86,9 @@ export class PorfolioBodyComponent implements OnInit {
         },
         line_linked: {
           enable: true,
-          distance: 150,
-          color: "#fff",
-          opacity: 0.4,
+          distance: 170,
+          color: "#5c8ba4",
+          opacity: 0.9,
           width: 1
         },
         move: {
