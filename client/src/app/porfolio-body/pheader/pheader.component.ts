@@ -13,7 +13,7 @@ export class PheaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   
+   new header()
   }
 
 }

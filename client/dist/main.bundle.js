@@ -2125,10 +2125,63 @@ exports.PaboutMeComponent = PaboutMeComponent;
 
 /***/ }),
 
+/***/ "../../../../../src/app/porfolio-body/pheader/header.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var header = /** @class */ (function () {
+    function header() {
+        (function () {
+            var start = null;
+            var scrollPosition = window.scrollY;
+            var halfWindowHeight = window.innerHeight / 2;
+            var rAFstarted = false;
+            var scrollnimates = [].slice.call(document.getElementsByClassName('scrollnimate'));
+            // get their offset from top of screen and their scroll speed
+            scrollnimates.forEach(function (sn) {
+                var clientOffsets = sn.getBoundingClientRect();
+                sn.animationOffset = clientOffsets.top + scrollPosition;
+                sn.magicNumber = sn.dataset.magicNumber || sn.getAttribute("data-magic-number") || "-14";
+            });
+            /*
+               * The rAF function
+              */
+            function step(timestamp) {
+                if (!start)
+                    start = timestamp;
+                // full progress indicator
+                var progress = timestamp - start;
+                var scrollPoint = window.scrollY;
+                scrollnimates.forEach(function (sn) {
+                    //sn.animationOffsets == main.he
+                    if (scrollPoint > (sn.animationOffset - halfWindowHeight * 2) && scrollPoint < (sn.animationOffset + halfWindowHeight)) {
+                        var magicPoint = (scrollPoint - (sn.animationOffset - halfWindowHeight)) / sn.magicNumber;
+                        var up = magicPoint + 'px';
+                        sn.style.webkitTransform = 'translateY(' + up + ')';
+                        sn.style.MozTransform = 'translateY(' + up + ')';
+                        sn.style.msTransform = 'translateY(' + up + ')';
+                        sn.style.OTransform = 'translateY(' + up + ')';
+                        sn.style.transform = 'translateY(' + up + ')';
+                    }
+                });
+                window.requestAnimationFrame(step);
+            }
+            window.requestAnimationFrame(step);
+        })();
+    }
+    return header;
+}());
+exports.header = header;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/porfolio-body/pheader/pheader.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, commodi. Ullam eligendi debitis est, tenetur vero nisi sit, veritatis suscipit explicabo qui aperiam similique aut obcaecati iure, aliquid a ducimus?</p>\n  <button>erwfer</button>\n  <a href=\"#\">vsdbsdbsdtbs</a>\n</div>"
+module.exports = "<html>\n  <body>\n    <section class=\"sea\">\n      <div class=\"container\">\n        <div class=\"content\">\n          <h1 class=\"scrollnimate\" data-magic-number=\"4\">Hello Parallax</h1>\n          <p class=\"scrollnimate\" data-magic-number=\"4\">This p tag will scroll too, however the image is static</p>\n          <img src=\"http://jl.webby.rocks/img/dark_glitter.jpg\" title=\"Glitter\" class=\"img float-left\">\n        </div>\n      </div>\n      <div class=\"container pad\">\n        <div class=\"content\">\n          <h1 class=\"scrollnimate\" data-magic-number=\"-8\">REVERSE</h1>\n          <p class=\"scrollnimate\" data-magic-number=\"-8\">These are using negative numbers reversing the flow, thus they move up.\n            <small>\n              <strong>SOURCE\n              </strong>\n                  <a href=\"http://clione.ru/work/jellyfish/\">http://clione.ru/work/jellyfish/</a>\n                </small>\n          </p>\n          <img src=\"https://s3-us-west-2.amazonaws.com/s.cdpn.io/276620/Jellyfish-cover.jpg\" title=\"Glitter\" class=\"img float-left scrollnimate\"\n            data-magic-number='-2'>\n        </div>\n      </div>\n    </section>\n  </body>\n</html>"
 
 /***/ }),
 
@@ -2140,7 +2193,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 500px; }\n  .wrapper p {\n    color: white;\n    width: 500px;\n    margin-top: 40px;\n    height: 250px;\n    background-color: rgba(0, 0, 0, 0.651);\n    display: inline-block; }\n", ""]);
+exports.push([module.i, ".container {\n  margin: 0;\n  padding: 0;\n  display: block;\n  height: 100vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.container.pad {\n  margin-top: 100px; }\n\n.container .content {\n  width: 98%;\n  margin: auto;\n  max-width: 500px;\n  text-align: center;\n  text-align: right;\n  font-size: 18px;\n  font-weight: 100;\n  font-family: \"Avenir\", serif; }\n\n.container .content h1, .container .content p {\n    top: 100px;\n    position: relative;\n    z-index: 2; }\n\n.container .content p {\n    max-width: 200px;\n    float: right; }\n\n.img.float-left {\n  float: left;\n  max-width: 350px; }\n\n.sea {\n  position: relative;\n  display: block;\n  padding: 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  color: #fff; }\n\na, a:visited {\n  color: steelblue; }\n", ""]);
 
 // exports
 
@@ -2166,10 +2219,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var header_1 = __webpack_require__("../../../../../src/app/porfolio-body/pheader/header.ts");
 var PheaderComponent = /** @class */ (function () {
     function PheaderComponent() {
     }
     PheaderComponent.prototype.ngOnInit = function () {
+        new header_1.header();
     };
     __decorate([
         core_1.Input(),
@@ -2272,7 +2327,7 @@ exports.PlinksComponent = PlinksComponent;
 /***/ "../../../../../src/app/porfolio-body/porfolio-body.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\n<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>\n<body id=\"home\" *ngIf=\"primaryUser != null\">\n    <nav class=\"navbar navbar-expand-sm navbar-light fixed-top py-2\">\n        <div class=\"container\">\n            <a href=\"#\" class=\"navbar-brand\">\n                <!-- <img src=\"img/mlogo.png\" width=\"50\" height=\"50\" alt=\"\"> -->\n                <h3 class=\"d-inline align-middle\">Jimenez</h3>\n            </a>\n            <button class=\"navbar-toggler\" data-toggle=\"collapse\" data-target=\"#navbarNav\">\n                <span class=\"navbar-toggler-icon\"></span>\n            </button>\n            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n                <ul class=\"navbar-nav ml-auto\">\n                    <li class=\"nav-item\">\n                        <a href=\"#summary\" class=\"nav-link\">Summary</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#about\" class=\"nav-link\">About</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#authors\" class=\"nav-link\">Meet The Authors</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#contact\" class=\"nav-link\">Contact</a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n    <!-- Header -->\n    <particles class=\"particles\" [params]=\"myParams\" [style]=\"myStyle\" [width]=\"width\" [height]=\"height\"></particles>\n\n   \n\n</body>\n    <app-pheader class=\"pheader\" [primaryUser]=\"primaryUser\"></app-pheader>\n\n    <!-- <div class=\"pheader\"></div> -->\n\n\n"
+module.exports = "<router-outlet></router-outlet>\n<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>\n<body id=\"home\" *ngIf=\"primaryUser != null\">\n    <nav class=\"navbar navbar-expand-sm navbar-light fixed-top py-2\">\n        <div class=\"container\">\n            <a href=\"#\" class=\"navbar-brand\">\n                <!-- <img src=\"img/mlogo.png\" width=\"50\" height=\"50\" alt=\"\"> -->\n                <h3 class=\"d-inline align-middle\">Jimenez</h3>\n            </a>\n            <button class=\"navbar-toggler\" data-toggle=\"collapse\" data-target=\"#navbarNav\">\n                <span class=\"navbar-toggler-icon\"></span>\n            </button>\n            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n                <ul class=\"navbar-nav ml-auto\">\n                    <li class=\"nav-item\">\n                        <a href=\"#summary\" class=\"nav-link\">Summary</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#about\" class=\"nav-link\">About</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#authors\" class=\"nav-link\">Meet The Authors</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#contact\" class=\"nav-link\">Contact</a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n    \n    <!-- Header -->\n    <!-- <app-pheader  [primaryUser]=\"primaryUser\"></app-pheader> -->\n    \n    <particles class=\"particles\" [params]=\"myParams\" [style]=\"myStyle\" [width]=\"width\" [height]=\"height\"></particles>\n\n   \n\n</body>\n\n    <!-- <div class=\"pheader\"></div> -->\n\n\n"
 
 /***/ }),
 
@@ -2284,7 +2339,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "body {\n  margin-top: 55px; }\n  body .pheader {\n    width: 500px;\n    height: 250px; }\n  .navbar {\n  -webkit-box-shadow: 2px 2px 5px #3292a6;\n          box-shadow: 2px 2px 5px #3292a6;\n  opacity: 0.9;\n  background: #fff; }\n  .navbar .nav-item {\n    font-size: 1.4rem;\n    padding-right: 20px; }\n  #showcase {\n  position: relative;\n  background-position: top;\n  min-height: 600px; }\n  .info-header {\n  width: 50%;\n  margin: auto;\n  border-bottom: 1px #ddd solid; }\n  #authors img {\n  margin-top: -50px; }\n  #authors .fa {\n  font-size: 25px; }\n  #authors .card:hover {\n  background: #3292a6;\n  color: #fff; }\n  #authors .card:hover .fa {\n    color: #fff; }\n", ""]);
+exports.push([module.i, "body {\n  margin-top: 55px; }\n\n.navbar {\n  -webkit-box-shadow: 2px 2px 5px #3292a6;\n          box-shadow: 2px 2px 5px #3292a6;\n  opacity: 0.9;\n  background: #fff; }\n\n.navbar .nav-item {\n    font-size: 1.4rem;\n    padding-right: 20px; }\n\n#showcase {\n  position: relative;\n  background-position: top;\n  min-height: 600px; }\n\n.info-header {\n  width: 50%;\n  margin: auto;\n  border-bottom: 1px #ddd solid; }\n\n#authors img {\n  margin-top: -50px; }\n\n#authors .fa {\n  font-size: 25px; }\n\n#authors .card:hover {\n  background: #3292a6;\n  color: #fff; }\n\n#authors .card:hover .fa {\n    color: #fff; }\n", ""]);
 
 // exports
 
