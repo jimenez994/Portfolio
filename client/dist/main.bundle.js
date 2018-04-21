@@ -2128,7 +2128,7 @@ exports.PaboutMeComponent = PaboutMeComponent;
 /***/ "../../../../../src/app/porfolio-body/pheader/pheader.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, commodi. Ullam eligendi debitis est, tenetur vero nisi sit, veritatis suscipit explicabo qui aperiam similique aut obcaecati iure, aliquid a ducimus?</p>\n  <button>erwfer</button>\n  <a href=\"#\">vsdbsdbsdtbs</a>\n<particles [params]=\"myParams\" [style]=\"myStyle\" [width]=\"width\" [height]=\"height\"></particles>\n</div>"
+module.exports = "<div class=\"wrapper\">\n  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, commodi. Ullam eligendi debitis est, tenetur vero nisi sit, veritatis suscipit explicabo qui aperiam similique aut obcaecati iure, aliquid a ducimus?</p>\n  <button>erwfer</button>\n  <a href=\"#\">vsdbsdbsdtbs</a>\n</div>"
 
 /***/ }),
 
@@ -2140,7 +2140,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".wrapper {\n  height: 500px;\n  background-color: #335c99;\n  background-size: cover;\n  background-position: 50% 50%;\n  background-repeat: no-repeat; }\n  .wrapper p {\n    color: white;\n    width: 500px;\n    margin-top: 40px;\n    height: 250px;\n    background-color: rgba(0, 0, 0, 0.651);\n    display: inline-block; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 500px; }\n  .wrapper p {\n    color: white;\n    width: 500px;\n    margin-top: 40px;\n    height: 250px;\n    background-color: rgba(0, 0, 0, 0.651);\n    display: inline-block; }\n", ""]);
 
 // exports
 
@@ -2168,17 +2168,173 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var PheaderComponent = /** @class */ (function () {
     function PheaderComponent() {
+    }
+    PheaderComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], PheaderComponent.prototype, "primaryUser", void 0);
+    PheaderComponent = __decorate([
+        core_1.Component({
+            selector: 'app-pheader',
+            template: __webpack_require__("../../../../../src/app/porfolio-body/pheader/pheader.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/porfolio-body/pheader/pheader.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PheaderComponent);
+    return PheaderComponent;
+}());
+exports.PheaderComponent = PheaderComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/plinks/bla.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var bla = /** @class */ (function () {
+    function bla() {
+    }
+    return bla;
+}());
+exports.bla = bla;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/plinks/plinks.component.html":
+/***/ (function(module, exports) {
+
+module.exports = " Summary\n<app-plinks></app-plinks>\n\n<section class=\"bg-dark text-white py-5\">\n  <div class=\"container text-center\">\n    <h4 class=\"text-white\">{{primaryUser.summary}}</h4>\n\n    {{primaryUser.summary }}\n\n\n\n  </div>\n</section>\n\n<!-- Stacks -->\n<app-pstacks [primaryUser]=\"primaryUser\"></app-pstacks>\n\n<!-- Projects -->\n<app-pprojects [primaryUser]=\"primaryUser\"></app-pprojects>\n\n<!-- Anout me -->\n<app-pabout-me [primaryUser]=\"primaryUser\"></app-pabout-me>\n<!--  -->\n<!-- AUTHORS -->\n<section id=\"authors\" class=\"my-5 text-center\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col\">\n        <div class=\"info-header mb-5\">\n          <h1 class=\"text-primary pb-3\">\n            Projects\n          </h1>\n          <p class=\"lead pb-3\">\n            <!--  -->\n          </p>\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div *ngFor=\"let project of primaryUser._project\" class=\"col-lg-3 col-md-6\">\n        <div class=\"card\">\n          <div class=\"card-body\">\n            <img src=\"{{project.img}}\" alt=\"\" class=\"img-fluid rounded-circle w-50 mb-3\">\n            <h3>{{project.title}}</h3>\n            <h5 class=\"text-muted\">{{project.subTitle}}</h5>\n            <p>{{project.description}}</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- CONTACT -->\n<section id=\"contact\" class=\"bg-light py-5\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-9\">\n        <h3>Get In Touch</h3>\n        <p class=\"lead\">If you have any questions, please don’t hesitate to contact using form below…</p>\n        <form (submit)=\"createMessage()\">\n          <div class=\"form-group\">\n            <div class=\"input-group input-group-lg\">\n              <span class=\"input-group-addon\">\n                <i class=\"fa fa-user\"></i>\n              </span>\n              <input type=\"text\" class=\"form-control\" placeholder=\"Name\" name=\"name\" [(ngModel)]=\"newMessage.name\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group input-group-lg\">\n              <span class=\"input-group-addon\">\n                <i class=\"fa fa-envelope\"></i>\n              </span>\n              <input type=\"email\" class=\"form-control\" name=\"email\" placeholder=\"Email\" [(ngModel)]=\"newMessage.email\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group input-group-lg\">\n              <span class=\"input-group-addon\">\n                <i class=\"fa fa-pencil\"></i>\n              </span>\n              <textarea type=\"text\" class=\"form-control\" name=\"text\" placeholder=\"Message\" rows=\"5\" [(ngModel)]=\"newMessage.text\"></textarea>\n            </div>\n          </div>\n          <input type=\"submit\" value=\"Submit\" class=\"btn btn-primary btn-block btn-lg\">\n        </form>\n      </div>\n      <div class=\"col-lg-3 align-self-center\">\n        <!-- <img src=\"img/mlogo.png\" alt=\"\" class=\"img-fluid\"> -->\n      </div>\n    </div>\n  </div>\n</section>\n\n\n<footer id=\"main-footer\" class=\"py-5 bg-primary text-white\">\n  <div class=\"container\">\n    <div class=\"row text-center\">\n      <div class=\"col-md-6 ml-auto\">\n        <p class=\"lead\">Copyright &copy; 2017</p>\n      </div>\n    </div>\n  </div>\n</footer>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/plinks/plinks.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "html, body {\n  height: 100%;\n  margin: 0px;\n  padding: 0px; }\n\n#particles-js {\n  width: 100%;\n  height: 100%;\n  background: #111111; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/plinks/plinks.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var bla_1 = __webpack_require__("../../../../../src/app/porfolio-body/plinks/bla.ts");
+var PlinksComponent = /** @class */ (function () {
+    function PlinksComponent() {
+    }
+    PlinksComponent.prototype.ngOnInit = function () {
+        new bla_1.bla();
+    };
+    PlinksComponent = __decorate([
+        core_1.Component({
+            selector: 'app-plinks',
+            template: __webpack_require__("../../../../../src/app/porfolio-body/plinks/plinks.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/porfolio-body/plinks/plinks.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PlinksComponent);
+    return PlinksComponent;
+}());
+exports.PlinksComponent = PlinksComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/porfolio-body.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>\n<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>\n<body id=\"home\" *ngIf=\"primaryUser != null\">\n    <nav class=\"navbar navbar-expand-sm navbar-light fixed-top py-2\">\n        <div class=\"container\">\n            <a href=\"#\" class=\"navbar-brand\">\n                <!-- <img src=\"img/mlogo.png\" width=\"50\" height=\"50\" alt=\"\"> -->\n                <h3 class=\"d-inline align-middle\">Jimenez</h3>\n            </a>\n            <button class=\"navbar-toggler\" data-toggle=\"collapse\" data-target=\"#navbarNav\">\n                <span class=\"navbar-toggler-icon\"></span>\n            </button>\n            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n                <ul class=\"navbar-nav ml-auto\">\n                    <li class=\"nav-item\">\n                        <a href=\"#summary\" class=\"nav-link\">Summary</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#about\" class=\"nav-link\">About</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#authors\" class=\"nav-link\">Meet The Authors</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#contact\" class=\"nav-link\">Contact</a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n    <!-- Header -->\n    <particles class=\"particles\" [params]=\"myParams\" [style]=\"myStyle\" [width]=\"width\" [height]=\"height\"></particles>\n\n   \n\n</body>\n    <app-pheader class=\"pheader\" [primaryUser]=\"primaryUser\"></app-pheader>\n\n    <!-- <div class=\"pheader\"></div> -->\n\n\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/porfolio-body.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "body {\n  margin-top: 55px; }\n  body .pheader {\n    width: 500px;\n    height: 250px; }\n  .navbar {\n  -webkit-box-shadow: 2px 2px 5px #3292a6;\n          box-shadow: 2px 2px 5px #3292a6;\n  opacity: 0.9;\n  background: #fff; }\n  .navbar .nav-item {\n    font-size: 1.4rem;\n    padding-right: 20px; }\n  #showcase {\n  position: relative;\n  background-position: top;\n  min-height: 600px; }\n  .info-header {\n  width: 50%;\n  margin: auto;\n  border-bottom: 1px #ddd solid; }\n  #authors img {\n  margin-top: -50px; }\n  #authors .fa {\n  font-size: 25px; }\n  #authors .card:hover {\n  background: #3292a6;\n  color: #fff; }\n  #authors .card:hover .fa {\n    color: #fff; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/porfolio-body/porfolio-body.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var user_service_1 = __webpack_require__("../../../../../src/app/server/controllers/user.service.ts");
+var message_service_1 = __webpack_require__("../../../../../src/app/server/controllers/message.service.ts");
+var message_1 = __webpack_require__("../../../../../src/app/server/models/message.ts");
+var PorfolioBodyComponent = /** @class */ (function () {
+    function PorfolioBodyComponent(_userServices, _mesageService) {
+        this._userServices = _userServices;
+        this._mesageService = _mesageService;
+        this.users = null;
+        this.primaryUser = null;
+        this.newMessage = new message_1.Message();
+        // particles background
         this.myStyle = {};
         this.myParams = {};
         this.width = 100;
         this.height = 100;
     }
-    PheaderComponent.prototype.ngOnInit = function () {
+    PorfolioBodyComponent.prototype.ngOnInit = function () {
+        this.getUsers();
+        // particles background
         this.myStyle = {
             'position': 'fixed',
             'width': '100%',
             'height': '100%',
-            // 'z-index': -1,
+            'z-index': -1,
+            'background-color': 'black',
             'top': 0,
             'left': 0,
             'right': 0,
@@ -2288,158 +2444,6 @@ var PheaderComponent = /** @class */ (function () {
                 retina_detect: true
             }
         };
-    };
-    __decorate([
-        core_1.Input(),
-        __metadata("design:type", Object)
-    ], PheaderComponent.prototype, "primaryUser", void 0);
-    PheaderComponent = __decorate([
-        core_1.Component({
-            selector: 'app-pheader',
-            template: __webpack_require__("../../../../../src/app/porfolio-body/pheader/pheader.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/porfolio-body/pheader/pheader.component.scss")]
-        })
-    ], PheaderComponent);
-    return PheaderComponent;
-}());
-exports.PheaderComponent = PheaderComponent;
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/plinks/bla.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var bla = /** @class */ (function () {
-    function bla() {
-    }
-    return bla;
-}());
-exports.bla = bla;
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/plinks/plinks.component.html":
-/***/ (function(module, exports) {
-
-module.exports = " Summary\n<app-plinks></app-plinks>\n\n<section class=\"bg-dark text-white py-5\">\n  <div class=\"container text-center\">\n    <h4 class=\"text-white\">{{primaryUser.summary}}</h4>\n\n    {{primaryUser.summary }}\n\n\n\n  </div>\n</section>\n\n<!-- Stacks -->\n<app-pstacks [primaryUser]=\"primaryUser\"></app-pstacks>\n\n<!-- Projects -->\n<app-pprojects [primaryUser]=\"primaryUser\"></app-pprojects>\n\n<!-- Anout me -->\n<app-pabout-me [primaryUser]=\"primaryUser\"></app-pabout-me>\n<!--  -->\n<!-- AUTHORS -->\n<section id=\"authors\" class=\"my-5 text-center\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col\">\n        <div class=\"info-header mb-5\">\n          <h1 class=\"text-primary pb-3\">\n            Projects\n          </h1>\n          <p class=\"lead pb-3\">\n            <!--  -->\n          </p>\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div *ngFor=\"let project of primaryUser._project\" class=\"col-lg-3 col-md-6\">\n        <div class=\"card\">\n          <div class=\"card-body\">\n            <img src=\"{{project.img}}\" alt=\"\" class=\"img-fluid rounded-circle w-50 mb-3\">\n            <h3>{{project.title}}</h3>\n            <h5 class=\"text-muted\">{{project.subTitle}}</h5>\n            <p>{{project.description}}</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- CONTACT -->\n<section id=\"contact\" class=\"bg-light py-5\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-9\">\n        <h3>Get In Touch</h3>\n        <p class=\"lead\">If you have any questions, please don’t hesitate to contact using form below…</p>\n        <form (submit)=\"createMessage()\">\n          <div class=\"form-group\">\n            <div class=\"input-group input-group-lg\">\n              <span class=\"input-group-addon\">\n                <i class=\"fa fa-user\"></i>\n              </span>\n              <input type=\"text\" class=\"form-control\" placeholder=\"Name\" name=\"name\" [(ngModel)]=\"newMessage.name\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group input-group-lg\">\n              <span class=\"input-group-addon\">\n                <i class=\"fa fa-envelope\"></i>\n              </span>\n              <input type=\"email\" class=\"form-control\" name=\"email\" placeholder=\"Email\" [(ngModel)]=\"newMessage.email\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group input-group-lg\">\n              <span class=\"input-group-addon\">\n                <i class=\"fa fa-pencil\"></i>\n              </span>\n              <textarea type=\"text\" class=\"form-control\" name=\"text\" placeholder=\"Message\" rows=\"5\" [(ngModel)]=\"newMessage.text\"></textarea>\n            </div>\n          </div>\n          <input type=\"submit\" value=\"Submit\" class=\"btn btn-primary btn-block btn-lg\">\n        </form>\n      </div>\n      <div class=\"col-lg-3 align-self-center\">\n        <!-- <img src=\"img/mlogo.png\" alt=\"\" class=\"img-fluid\"> -->\n      </div>\n    </div>\n  </div>\n</section>\n\n\n<footer id=\"main-footer\" class=\"py-5 bg-primary text-white\">\n  <div class=\"container\">\n    <div class=\"row text-center\">\n      <div class=\"col-md-6 ml-auto\">\n        <p class=\"lead\">Copyright &copy; 2017</p>\n      </div>\n    </div>\n  </div>\n</footer>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/plinks/plinks.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "html, body {\n  height: 100%;\n  margin: 0px;\n  padding: 0px; }\n\n#particles-js {\n  width: 100%;\n  height: 100%;\n  background: #111111; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/plinks/plinks.component.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__("../../../core/esm5/core.js");
-var bla_1 = __webpack_require__("../../../../../src/app/porfolio-body/plinks/bla.ts");
-var PlinksComponent = /** @class */ (function () {
-    function PlinksComponent() {
-    }
-    PlinksComponent.prototype.ngOnInit = function () {
-        new bla_1.bla();
-    };
-    PlinksComponent = __decorate([
-        core_1.Component({
-            selector: 'app-plinks',
-            template: __webpack_require__("../../../../../src/app/porfolio-body/plinks/plinks.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/porfolio-body/plinks/plinks.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], PlinksComponent);
-    return PlinksComponent;
-}());
-exports.PlinksComponent = PlinksComponent;
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/porfolio-body.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<router-outlet></router-outlet>\n<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>\n<body id=\"home\" *ngIf=\"primaryUser != null\">\n    <nav class=\"navbar navbar-expand-sm navbar-light fixed-top py-2\">\n        <div class=\"container\">\n            <a href=\"#\" class=\"navbar-brand\">\n                <!-- <img src=\"img/mlogo.png\" width=\"50\" height=\"50\" alt=\"\"> -->\n                <h3 class=\"d-inline align-middle\">Jimenez</h3>\n            </a>\n            <button class=\"navbar-toggler\" data-toggle=\"collapse\" data-target=\"#navbarNav\">\n                <span class=\"navbar-toggler-icon\"></span>\n            </button>\n            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n                <ul class=\"navbar-nav ml-auto\">\n                    <li class=\"nav-item\">\n                        <a href=\"#summary\" class=\"nav-link\">Summary</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#about\" class=\"nav-link\">About</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#authors\" class=\"nav-link\">Meet The Authors</a>\n                    </li>\n                    <li class=\"nav-item\">\n                        <a href=\"#contact\" class=\"nav-link\">Contact</a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n    <!-- Header -->\n    <app-pheader [primaryUser]=\"primaryUser\"></app-pheader>\n   \n\n</body>\n\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/porfolio-body.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "body {\n  margin-top: 55px; }\n\n.navbar {\n  -webkit-box-shadow: 2px 2px 5px #3292a6;\n          box-shadow: 2px 2px 5px #3292a6;\n  opacity: 0.9;\n  background: #fff; }\n\n.navbar .nav-item {\n    font-size: 1.4rem;\n    padding-right: 20px; }\n\n#showcase {\n  position: relative;\n  background-position: top;\n  min-height: 600px; }\n\n.info-header {\n  width: 50%;\n  margin: auto;\n  border-bottom: 1px #ddd solid; }\n\n#authors img {\n  margin-top: -50px; }\n\n#authors .fa {\n  font-size: 25px; }\n\n#authors .card:hover {\n  background: #3292a6;\n  color: #fff; }\n\n#authors .card:hover .fa {\n    color: #fff; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/porfolio-body/porfolio-body.component.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__("../../../core/esm5/core.js");
-var user_service_1 = __webpack_require__("../../../../../src/app/server/controllers/user.service.ts");
-var message_service_1 = __webpack_require__("../../../../../src/app/server/controllers/message.service.ts");
-var message_1 = __webpack_require__("../../../../../src/app/server/models/message.ts");
-var PorfolioBodyComponent = /** @class */ (function () {
-    function PorfolioBodyComponent(_userServices, _mesageService) {
-        this._userServices = _userServices;
-        this._mesageService = _mesageService;
-        this.users = null;
-        this.primaryUser = null;
-        this.newMessage = new message_1.Message();
-    }
-    PorfolioBodyComponent.prototype.ngOnInit = function () {
-        this.getUsers();
     };
     PorfolioBodyComponent.prototype.getUsers = function () {
         var _this = this;
