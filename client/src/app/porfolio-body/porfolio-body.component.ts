@@ -15,7 +15,7 @@ export class PorfolioBodyComponent implements OnInit {
   primaryUser = null;
   newMessage = new Message()
 
-  // particles background
+  // Particles Background 
   myStyle: object = {};
   myParams: object = {};
   width: number = 100;
